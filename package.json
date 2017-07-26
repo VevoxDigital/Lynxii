@@ -1,0 +1,52 @@
+{
+  "name": "lynxii",
+  "version": "0.0.0",
+  "productName": "Lynxii",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "grunt test",
+    "clearlogs": "grunt clean:logs"
+  },
+  "config": {
+    "server": {
+      "port": 22055,
+      "address": "::1"
+    },
+    "license": ""
+  },
+  "__configRequired": [
+    "server:port",
+    "license"
+  ],
+  "standard": {
+    "globals": [
+      "Util"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CynicalBusiness/Lynxii.git"
+  },
+  "author": "Vevox Digital",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/CynicalBusiness/Lynxii/issues"
+  },
+  "homepage": "https://github.com/CynicalBusiness/Lynxii#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "fs-extra": "^4.0.0",
+    "lodash": "^4.17.4",
+    "nconf": "^0.8.4",
+    "q": "^1.5.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0"
+  }
+}
