@@ -23,7 +23,11 @@
   ],
   "standard": {
     "globals": [
-      "Util"
+      "Util",
+      "describe",
+      "it",
+      "before",
+      "beforeEach"
     ]
   },
   "repository": {
@@ -46,7 +50,11 @@
     "winston-daily-rotate-file": "^1.4.6"
   },
   "devDependencies": {
+    "expect.js": "^0.3.1",
     "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.1.0"
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-mocha-istanbul": "^5.0.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2"
   }
 }

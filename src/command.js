@@ -3,6 +3,7 @@
 const q = require('q')
 
 const commands = new Map()
+exports.$commands = commands
 
 exports.exec = str => {
   const args = str.split(' ') // TODO quote parsing?
@@ -20,11 +21,12 @@ class Command {
     Object.defineProperty(this, '$exec', { value: func })
   }
 
-  exec (args) {
-    args.unshift(this.name)
-    return q(this.$exec.call(null, args))
+  exec (args = [ ]) {
+    // args.unshift(this.name)
+    return q(this.$exec.apply(null, args))
   }
 }
+exports.Command = Command
 
 class CommandAlias extends Command {
   constructor (name, target) {
@@ -33,6 +35,7 @@ class CommandAlias extends Command {
     })
   }
 }
+exports.CommandAlias = CommandAlias
 
 function registerCommand (cmd) {
   commands.set(cmd.name, cmd)

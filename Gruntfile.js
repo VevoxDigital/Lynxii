@@ -11,8 +11,23 @@ exports = module.exports = grunt => {
 
     clean: {
       logs: [ 'logs' ]
+    },
+
+    'mocha_istanbul': {
+      src: {
+        options: {
+          root: './src',
+          istanbulOptions: [ '-x', 'index.js' ]
+        },
+        src: [ 'test/**/*.js' ]
+      }
     }
   })
 
   grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.loadNpmTasks('grunt-mocha-istanbul')
+
+  grunt.registerTask('test', [
+    'mocha_istanbul:src'
+  ])
 }

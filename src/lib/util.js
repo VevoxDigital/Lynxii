@@ -16,6 +16,7 @@ exports.app = require(path.join(exports.dirs.root, 'package.json'))
 
 const CONFIG_FILE = path.join(exports.dirs.root, 'config.json')
 
+/* istanbul ignore next */
 exports.initConfig = () => {
   const deferred = q.defer()
 
@@ -37,6 +38,7 @@ exports.initConfig = () => {
   return deferred.promise
 }
 
+/* istanbul ignore next */
 exports.saveConfig = () => {
   const deferred = q.defer()
 
