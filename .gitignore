@@ -10,3 +10,6 @@ logs/
 
 # Configuration
 config.json
+
+# Tests & Coverage
+coverage/
