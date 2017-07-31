@@ -1,0 +1,24 @@
+# CodeClimate Code Check configuration
+# https://codeclimate.com/github/VevoxDigital/Skribki
+
+engines:
+  duplication:
+    enabled: true
+    checks:
+      Similar code: # This thing throws false positives like crazy.
+        enabled: false
+    exclude_paths:
+    - test/ # Please stop looking for duplicates in tests
+    - Gruntfile.js # Really...?
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  scss-lint:
+    enabled: true
+ratings:
+  paths:
+  - 'src/**'
