@@ -2,7 +2,7 @@
   "name": "lynxii",
   "version": "0.0.0-dev-7eb1120",
   "productName": "Lynxii",
-  "description": "",
+  "description": "Simple and powerful dynamic communications network for your home, business, lab, or factory.",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -33,14 +33,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CynicalBusiness/Lynxii.git"
+    "url": "git+https://github.com/VevoxDigital/Lynxii.git"
   },
   "author": "Vevox Digital",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/CynicalBusiness/Lynxii/issues"
+    "url": "https://github.com/VevoxDigital/Lynxii/issues"
   },
-  "homepage": "https://github.com/CynicalBusiness/Lynxii#readme",
+  "homepage": "http://vevox.io/p/lynxii",
   "dependencies": {
     "colors": "^1.1.2",
     "enumify": "^1.0.4",
