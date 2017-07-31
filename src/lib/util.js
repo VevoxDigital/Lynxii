@@ -5,6 +5,8 @@ const nconf = require('nconf')
 const fs = require('fs-extra')
 const path = require('path')
 
+const { Enum } = require('enumify')
+
 exports.dirs = {
   root: path.join(__dirname, '..', '..'),
   src: path.join(__dirname, '..'),
@@ -49,3 +51,7 @@ exports.saveConfig = () => {
 
   return deferred.promise
 }
+
+class DeviceEvent extends Enum { }
+DeviceEvent.initEnum([ 'DATA', 'CONNECT', 'DISCONNECT' ])
+exports.DeviceEvent = DeviceEvent

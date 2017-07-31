@@ -2,7 +2,9 @@
 
 const expect = require('expect.js')
 
-const { EVENT, NodeType, DeviceNode } = require('../../src/device/node')
+const { NodeType, DeviceNode } = require('../../src/device/node')
+
+global.Util = require('../../src/lib/util')
 
 describe('device/node', () => {
   // device/node
@@ -133,6 +135,55 @@ describe('device/node', () => {
       })
     })
 
+    describe('connections', () => {
+      // device/node.DeviceNode.connections
+
+      const dn = new DeviceNode(NodeType.BOOLEAN)
+
+      it('should be an array', () => {
+        expect(dn.connections).to.be.an(Array)
+      })
+
+      it('should be a clone of the internal variable', () => {
+        const len = dn.connections.length
+        dn.connections.push('foo')
+        expect(dn.connections.length).to.be(len)
+      })
+    })
+
+    describe('#connect', () => {
+      // device/node.DeviceNode#connect
+
+      const dn = new DeviceNode(NodeType.BOOLEAN, 1)
+
+      it('should append node to both connections', () => {
+        const t1 = new DeviceNode(NodeType.ANY)
+        dn.connect(t1)
+        expect(dn.connections.indexOf(t1)).to.not.be(-1)
+        expect(t1.connections.indexOf(dn)).to.not.be(-1)
+      })
+
+      it('should not connect if connection limit is reached', () => {
+        dn.connect(new DeviceNode(NodeType.ANY))
+        expect(dn.connections.length).to.not.be(0)
+      })
+    })
+
+    describe('#disconnect', () => {
+      // device/node.DeviceNode#disconnect
+
+      const d1 = new DeviceNode(NodeType.ANY)
+      const d2 = new DeviceNode(NodeType.ANY)
+
+      d1.connect(d2)
+
+      it('should disconnect two nodes', () => {
+        expect(d1.connections.indexOf(d2)).to.not.be(-1)
+        d1.disconnect(d2)
+        expect(d1.connections.indexOf(d2)).to.be(-1)
+      })
+    })
+
     describe('(data event)', () => {
       // device/node.DeviceNode (data event)
 
@@ -140,7 +191,7 @@ describe('device/node', () => {
       dn._state = false
 
       it('should set the state if valid', done => {
-        dn.emit(EVENT, true)
+        dn.emit(Util.DeviceEvent.DATA, true)
         setTimeout(() => {
           expect(dn.state).to.be(true)
           done()
@@ -148,7 +199,7 @@ describe('device/node', () => {
       })
 
       it('should do nothing if not valid', done => {
-        dn.emit(EVENT, 'foo')
+        dn.emit(Util.DeviceEvent.DATA, 'foo')
         setTimeout(() => {
           // already true from previous test
           expect(dn.state).to.be(true)

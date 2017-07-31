@@ -3,11 +3,7 @@
 const assert = require('assert')
 
 const { EventEmitter } = require('events')
-
-// oh how I wish we could use ES6 modules
 const { Enum } = require('enumify')
-
-Object.defineProperty(exports, 'EVENT', { value: '_data', enumerable: true })
 
 class NodeType extends Enum { }
 NodeType.initEnum({
@@ -51,13 +47,14 @@ class DeviceNode extends EventEmitter {
 
     // constants
     Object.defineProperty(this, 'type', { value: type, enumerable: true })
-    Object.defineProperty(this, 'maxConnections', { value: connections, enumerable: true })
+    Object.defineProperty(this, 'maxConnections', { value: connections || Number.MAX_SAFE_INTEGER, enumerable: true })
 
     // private variables
     Object.defineProperty(this, '_enabled', { value: true, enumerable: false, writable: true })
     Object.defineProperty(this, '_state', { value: type.default, enumerable: false, writable: true })
+    Object.defineProperty(this, '_connections', { value: [ ] })
 
-    this.on(exports.EVENT, data => {
+    this.on(Util.DeviceEvent.DATA, data => {
       if (this.isValid(data)) this._state = data
     })
   }
@@ -91,6 +88,47 @@ class DeviceNode extends EventEmitter {
     */
   get enabled () {
     return this._enabled
+  }
+
+  /**
+    * @function
+    * Gets a copy of the connections to this node
+    * @return {Array<DeviceNode>} The connections
+    */
+  get connections () {
+    return [ ...this._connections ]
+  }
+
+  /**
+    * @function
+    * Connects the given node to this one.
+    * @param {DeviceNode} node The node to connect
+    */
+  connect (node) {
+    assert.ok(node instanceof DeviceNode, 'Connection node must be a DeviceNode')
+    if (this._connections.length < this.maxConnections && node.connections.length < node.maxConnections &&
+      this._connections.indexOf(node) < 0 && node._connections.indexOf(this) < 0) {
+      this._connections.push(node)
+      node._connections.push(this)
+
+      this.emit(Util.DeviceEvent.CONNECT, node)
+      node.emit(Util.DeviceEvent.CONNECT, this)
+    }
+  }
+
+  /**
+    * @function
+    * Disconnects the given node from this one if connected
+    * @param {DeviceNode} node The node to disconnect
+    */
+  disconnect (node) {
+    const i = this._connections.indexOf(node)
+    if (i > -1) {
+      this._connections.splice(i, 1)
+      node.disconnect(this)
+
+      this.emit(Util.DeviceEvent.DISCONNECT, node)
+    }
   }
 }
 exports.DeviceNode = DeviceNode
