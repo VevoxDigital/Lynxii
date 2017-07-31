@@ -8,7 +8,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "grunt test",
-    "clearlogs": "grunt clean:logs"
+    "clearlogs": "grunt clean:logs",
+    "license": "node license.js"
   },
   "config": {
     "server": {
@@ -56,6 +57,7 @@
     "grunt-contrib-clean": "^1.1.0",
     "grunt-mocha-istanbul": "^5.0.2",
     "istanbul": "^0.4.5",
+    "klaw-sync": "^2.1.0",
     "mocha": "^3.4.2"
   }
 }

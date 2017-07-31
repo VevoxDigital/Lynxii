@@ -1,3 +1,6 @@
+/*
+ * Copyright 2017 Vevox Digital under the GNU General Public License v3.0.
+ */
 'use strict'
 
 const assert = require('assert')
