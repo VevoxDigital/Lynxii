@@ -8,6 +8,7 @@ node_js:
 
 # Install necessary packages before runtime
 install:
+- yarn global add ts-node mocha @types/mocha chai @types/chai nyc
 - yarn
 
 # Build only master/dev. Other branches are docs, examples, or legacy.
