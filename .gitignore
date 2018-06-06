@@ -13,3 +13,4 @@ config.json
 
 # Tests & Coverage
 coverage/
+.nyc_output/

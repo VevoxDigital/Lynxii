@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "src/*": [ "src/*" ]
+    }
+  },
+  "exclude": [
+    "lib"
+  ]
+}

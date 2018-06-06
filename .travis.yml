@@ -4,23 +4,21 @@
 language: node_js
 node_js:
 - 'stable' # latest stable
-- '6.0'    # minimum
-- '6.9.1'  # recommended (lts)
+- '10.0'   # minimum
 
 # Install necessary packages before runtime
 install:
-- npm install
+- yarn
 
 # Build only master/dev. Other branches are docs, examples, or legacy.
 branches:
   only:
   - master
-  - dev
 
 addons:
   code_climate:
     repo_token: 7fa84e1393a582d1023c7cf39e64a35c14ab52c6fd78b81edf44b1d213cf9f41
 
 after_success:
-- npm i -g codeclimate-test-reporter
+- yarn global add codeclimate-test-reporter
 - codeclimate-test-reporter < coverage/lcov.info
