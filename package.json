@@ -6,19 +6,28 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node -r ts-node/register src/index.ts",
+    "start": "node -r ts-node/register -r tsconfig-paths/register src/index.ts",
     "test": "nyc mocha"
   },
   "nyc": {
     "include": [
-      "src/**/*.ts",
-      "src/**/*.tsx"
+      "src/**/*.{ts,tsx}"
     ],
-    "extensions": [ ".ts", ".tsx" ],
-    "require": [ "ts-node/register" ],
-    "reporter": [ "lcov" ],
-    "sourceMap": true,
-    "instrument": true
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "extensions": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register",
+      "tsconfig-paths/register"
+    ],
+    "reporter": [
+      "lcov"
+    ],
+    "all": true
   },
   "config": {
     "server": {
@@ -36,12 +45,15 @@
   "bugs": {
     "url": "https://github.com/VevoxDigital/Lynxii/issues"
   },
-  "homepage": "https://vevox.io/p/lynxii",
+  "homepage": "https://vevox.io/lynxii",
   "dependencies": {
     "@types/debug": "^0.0.30",
+    "@types/node": "^10.3.1",
+    "@types/uuid": "^3.4.3",
     "debug": "^3.1.0",
     "lodash": "^4.17.4",
     "nconf": "^0.8.4",
+    "uuid": "^3.2.1",
     "winston": "^2.3.1",
     "winston-daily-rotate-file": "^1.4.6"
   },
@@ -53,6 +65,7 @@
     "mocha": "^3.4.2",
     "source-map-support": "^0.5.6",
     "ts-node": "^6.1.0",
+    "tsconfig-paths": "^3.3.2",
     "typescript": "^2.9.1"
   }
 }

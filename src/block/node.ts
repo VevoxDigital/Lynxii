@@ -1,0 +1,95 @@
+import { EventEmitter } from 'events'
+import Block from '@/block/block'
+
+export namespace NodeInfo {
+  /** The direction a node is acting in */
+  export enum Direction {
+    INPUT,
+    OUTPUT
+  }
+
+  /** The type of data on a node */
+  export enum Type {
+    BOOLEAN,
+    NUMBER,
+    STRING,
+    OBJECT
+  }
+
+  export interface Definition {
+    direction: NodeInfo.Direction
+    type: NodeInfo.Type
+
+    validator: Function
+  }
+
+  export interface NodeMapNodes extends Array<Node> {
+    [index: number]: Node
+  }
+}
+
+export class NodeValueValidationError extends Error {
+
+}
+
+/** A mapping for a block's nodes */
+export class NodeMap {
+  private readonly inputs: NodeInfo.NodeMapNodes
+  private readonly outputs: NodeInfo.NodeMapNodes
+
+  constructor (nodes: NodeInfo.Definition[], block: Block) {
+    this.inputs = [ ]
+    this.outputs = [ ]
+
+    for (const nodeDef of nodes) {
+      let array
+      if (nodeDef.direction === NodeInfo.Direction.INPUT) array = this.inputs
+      else if (nodeDef.direction === NodeInfo.Direction.OUTPUT) array = this.outputs
+
+      if (array) this.pushNode(array, nodeDef, block)
+    }
+  }
+
+  private pushNode (array: NodeInfo.NodeMapNodes, def: NodeInfo.Definition, block: Block) {
+    array.push(new Node(def, block, array.length))
+  }
+
+  /** Gets an input node by its index */
+  getInput (index: number): Node {
+    return this.inputs[index]
+  }
+
+  /** Gets an output node by its index */
+  getOutput (index: number): Node {
+    return this.outputs[index]
+  }
+}
+
+/** A singular node on a given Block */
+export class Node extends EventEmitter implements NodeInfo.Definition {
+  public readonly block: Block
+  public readonly index: number
+  public readonly direction: NodeInfo.Direction
+  public readonly type: NodeInfo.Type
+  public readonly validator: Function
+
+  private value: any
+
+  constructor (def: NodeInfo.Definition, block: Block, index: number) {
+    super()
+
+    this.block = block
+    this.index = index
+    this.direction = def.direction
+    this.type = def.type
+    this.validator = def.validator
+  }
+
+  /** Validates the given value, returning whether or not it is valid */
+  validate (value): boolean {
+    const type = NodeInfo.Type[this.type].toLowerCase()
+    return this.validator
+      ? typeof value === type && !!this.validator(value)
+      : true
+  }
+}

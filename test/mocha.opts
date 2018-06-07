@@ -1,5 +1,6 @@
---compilers ts-node/register
+--require ts-node/register
+--require tsconfig-paths/register
 --require source-map-support/register
 --full-trace
---bail
+--recursive
 test/**/*.{ts,tsx}

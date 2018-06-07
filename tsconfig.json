@@ -2,9 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "moduleResolution": "node",
+    "sourceMap": true,
     "paths": {
-      "src/*": [ "src/*" ]
-    }
+      "@/*": [ "src/*" ]
+    },
+    "types": [
+      "node"
+    ]
   },
   "exclude": [
     "lib"
