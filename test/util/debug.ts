@@ -3,7 +3,7 @@ import { expect } from 'chai'
 
 import 'mocha'
 
-describe('src/util/debug', function () {
+describe('util.debug', function () {
   describe('createDebugLogger()', function () {
     const _debug = createDebugLogger('test')
 

@@ -7,7 +7,18 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r ts-node/register src/index.ts",
-    "test": "nyc --reporter=lcov mocha --require ts-node/register test/**/*.ts"
+    "test": "nyc mocha"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extensions": [ ".ts", ".tsx" ],
+    "require": [ "ts-node/register" ],
+    "reporter": [ "lcov" ],
+    "sourceMap": true,
+    "instrument": true
   },
   "config": {
     "server": {
@@ -40,6 +51,7 @@
     "chai": "^4.1.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
+    "source-map-support": "^0.5.6",
     "ts-node": "^6.1.0",
     "typescript": "^2.9.1"
   }
