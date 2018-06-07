@@ -25,7 +25,8 @@
       "tsconfig-paths/register"
     ],
     "reporter": [
-      "lcov"
+      "lcov",
+      "text"
     ],
     "all": true
   },
