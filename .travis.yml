@@ -10,6 +10,11 @@ node_js:
 - 'stable' # latest stable
 - '10.0'   # minimum
 
+# Build only master/dev. Other branches are docs, examples, or legacy.
+branches:
+  only:
+  - master
+
 # Before build script
 before_script:
 - yarn global add nyc ts-node mocha chai
@@ -21,13 +26,8 @@ before_script:
 install:
 - yarn
 
-# Build only master/dev. Other branches are docs, examples, or legacy.
-branches:
-  only:
-  - master
-
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov
 
 notifications:
   email: false
