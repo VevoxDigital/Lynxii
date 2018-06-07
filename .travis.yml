@@ -1,5 +1,5 @@
-# Skribki Wiki CI configuration.
-# https://travis-ci.org/VevoxDigital/Skribki
+# Lynxii CI configuration.
+# https://travis-ci.org/VevoxDigital/Lynxii
 
 env:
   global:
@@ -27,7 +27,7 @@ install:
 - yarn
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov --debug
 
 notifications:
   email: false
