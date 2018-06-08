@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "moduleResolution": "node",
+    "target": "es5",
     "sourceMap": true,
     "paths": {
       "@/*": [ "src/*" ]

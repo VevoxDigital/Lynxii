@@ -20,7 +20,7 @@ export namespace NodeInfo {
     direction: NodeInfo.Direction
     type: NodeInfo.Type
 
-    validator: Function
+    validator?: Function
   }
 
   export interface NodeMapNodes extends Array<Node> {
@@ -52,6 +52,16 @@ export class NodeMap {
 
   private pushNode (array: NodeInfo.NodeMapNodes, def: NodeInfo.Definition, block: Block) {
     array.push(new Node(def, block, array.length))
+  }
+
+  /** the number of input nodes */
+  get inputCount (): number {
+    return this.inputs.length
+  }
+
+  /** The number of output nodes */
+  get outputCount (): number {
+    return this.outputs.length
   }
 
   /** Gets an input node by its index */
@@ -88,8 +98,8 @@ export class Node extends EventEmitter implements NodeInfo.Definition {
   /** Validates the given value, returning whether or not it is valid */
   validate (value): boolean {
     const type = NodeInfo.Type[this.type].toLowerCase()
-    return this.validator
-      ? typeof value === type && !!this.validator(value)
+    return typeof value === type && this.validator
+      ? !!this.validator(value)
       : true
   }
 }

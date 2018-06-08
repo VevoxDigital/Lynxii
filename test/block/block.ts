@@ -21,9 +21,26 @@ describe('block/block', function () {
 
         let b: Block
         expect(() => { b = init('foo')() }).to.not.throw()
-        expect(b.uuid).to.be.equal('foo')
+        expect(b.uuid).to.equal('foo')
 
         expect(init('')).to.throw(/^UUID must/)
+      })
+    })
+
+    describe('initialize()', function () {
+      it('should invoke the function with proper context and no args', function (done) {
+        const b = new Block(function (arg) {
+          expect(this).to.equal(b)
+          expect(arg).to.be.undefined
+          done()
+        }, [ ])
+
+        b.initialize()
+      })
+
+      it('should return itself', function () {
+        const b = new Block(noop, [ ])
+        expect(b.initialize()).to.equal(b)
       })
     })
   })
