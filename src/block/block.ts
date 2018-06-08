@@ -1,5 +1,6 @@
 import { Node, NodeMap, NodeInfo } from '@/block/node'
 import { generateUniqueID } from '@/util/uuid'
+import * as assert from 'assert'
 
 /** Different events on a given block */
 export enum BlockEvent {
@@ -20,6 +21,7 @@ export default class Block {
     * optionally using a specific UUID (otherwise one is generated).
     */
   constructor (func: Function, nodes: NodeInfo.Definition[], uuid = generateUniqueID()) {
+    assert(uuid.length, 'UUID must be a non-zero-length string')
     this.uuid = uuid
     this.func = func
 
