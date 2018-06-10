@@ -1,8 +1,23 @@
+import { v4 as generateUUID } from 'uuid'
+import createDebugLogger from 'server/util/debug'
+
+const _debug = createDebugLogger('util')
+
+/** A void-returning function that does nothing */
+export function noop () { }
+
 /** Gets the keys from the given enum */
 export function getEnumKeys (enumValues): Array<string> {
   const keys = Object.keys(enumValues)
   return keys.slice(keys.length / 2)
 }
 
-/** A void-returning function that does nothing */
-export function noop () { }
+/** The format for unique IDs */
+export const idFormat = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
+
+/** Generates a unique v4 UUID */
+export function generateUniqueID (): string {
+  const id = generateUUID()
+  _debug('generate unique ID %s', id)
+  return id
+}

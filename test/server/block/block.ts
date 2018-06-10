@@ -1,9 +1,9 @@
 import Block from 'server/block/block'
 
+import { noop } from 'server/util'
+
 import { expect } from 'chai'
 import 'mocha'
-
-const noop = () => { }
 
 describe('server/block/block', function () {
   describe('Block', function () {
