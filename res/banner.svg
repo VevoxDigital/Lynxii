@@ -56,18 +56,34 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
-    <text
-       sodipodi:linespacing="125%"
-       id="text3336"
-       y="1017.0624"
-       x="638.40881"
+    <g
        style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway, Light';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
+       id="text3336">
+      <path
+         d="m 264.99716,1017.0624 0,-189.74791 13.62978,0 0,177.45441 113.31423,0 0,12.2935 -126.94401,0 z"
          style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
-         y="1017.0624"
-         x="638.40881"
-         id="tspan3338"
-         sodipodi:role="line">LYNXII</tspan></text>
+         id="path4684" />
+      <path
+         d="m 382.85048,827.31449 66.27813,105.02946 66.54539,-105.02946 15.23328,0 -74.83015,118.12474 0,71.62317 -13.62978,0 0,-72.15767 -74.56291,-117.59024 14.96604,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
+         id="path4686" />
+      <path
+         d="m 574.06407,852.97054 0,164.09186 -13.62978,0 0,-189.74791 10.42277,0 133.09078,167.03159 0,-167.03159 13.62978,0 0,189.74791 -12.56078,0 -130.95277,-164.09186 z"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
+         id="path4688" />
+      <path
+         d="m 759.92013,827.31449 66.54538,86.32193 66.27814,-86.32193 15.50053,0 -74.5629,96.2102 72.4249,93.53771 -15.50053,0 -64.14014,-83.64944 -64.40738,83.64944 -15.76778,0 72.4249,-93.53771 -74.56291,-96.2102 15.76779,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
+         id="path4690" />
+      <path
+         d="m 935.21145,1017.0624 0,-189.74791 13.62978,0 0,189.74791 -13.62978,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
+         id="path4692" />
+      <path
+         d="m 998.37027,1017.0624 0,-189.74791 13.62973,0 0,189.74791 -13.62973,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:267.25054932px;line-height:125%;font-family:Raleway;-inkscape-font-specification:'Raleway Light';text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#636e72;fill-opacity:1"
+         id="path4694" />
+    </g>
   </g>
   <g
      inkscape:label="icon"
