@@ -41,17 +41,15 @@ export class NodeMap {
     this.inputs = [ ]
     this.outputs = [ ]
 
-    for (const nodeDef of nodes) {
-      let array
-      if (nodeDef.direction === NodeInfo.Direction.INPUT) array = this.inputs
-      else if (nodeDef.direction === NodeInfo.Direction.OUTPUT) array = this.outputs
-
-      if (array) this.pushNode(array, nodeDef, block)
+    const arrayMapping = {
+      [NodeInfo.Direction.INPUT]: this.inputs,
+      [NodeInfo.Direction.OUTPUT]: this.outputs
     }
-  }
 
-  private pushNode (array: NodeInfo.NodeMapNodes, def: NodeInfo.Definition, block: Block) {
-    array.push(new Node(def, block, array.length))
+    for (const nodeDef of nodes) {
+      const array = arrayMapping[nodeDef.direction]
+      if (array) array.push(new Node(nodeDef, block, array.length))
+    }
   }
 
   /** the number of input nodes */
