@@ -1,5 +1,5 @@
-import { Node, NodeMap, NodeInfo } from '@/block/node'
-import { generateUniqueID } from '@/util/uuid'
+import { Node, NodeMap, NodeInfo } from 'server/block/node'
+import { generateUniqueID } from 'server/util/uuid'
 import * as assert from 'assert'
 
 /** Different events on a given block */

@@ -1,11 +1,11 @@
-import Block from '@/block/block'
+import Block from 'server/block/block'
 
 import { expect } from 'chai'
 import 'mocha'
 
 const noop = () => { }
 
-describe('block/block', function () {
+describe('server/block/block', function () {
   describe('Block', function () {
     describe('<init>', function () {
       it('should initialize a NodeMap and UUID', function () {

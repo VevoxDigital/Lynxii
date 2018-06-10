@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import Block from '@/block/block'
+import Block from 'server/block/block'
 
 export namespace NodeInfo {
   /** The direction a node is acting in */

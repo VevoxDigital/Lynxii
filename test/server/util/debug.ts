@@ -1,9 +1,9 @@
-import createDebugLogger from '../../src/util/debug'
+import createDebugLogger from 'server/util/debug'
 import { expect } from 'chai'
 
 import 'mocha'
 
-describe('util/debug', function () {
+describe('server/util/debug', function () {
   describe('createDebugLogger()', function () {
     const _debug = createDebugLogger('test')
 

@@ -5,7 +5,8 @@
     "target": "es5",
     "sourceMap": true,
     "paths": {
-      "@/*": [ "src/*" ]
+      "@/*": [ "./*" ],
+      "server/*": [ "./server/*" ]
     },
     "types": [
       "node"

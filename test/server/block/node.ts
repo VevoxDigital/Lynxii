@@ -1,12 +1,12 @@
-import * as node from '@/block/node'
-import Block from '@/block/block'
+import * as node from 'server/block/node'
+import Block from 'server/block/block'
 
 import { expect } from 'chai'
 import 'mocha'
 
-import { getEnumKeys, noop } from '@/util'
+import { getEnumKeys, noop } from 'server/util'
 
-describe('block/node', function () {
+describe('server/block/node', function () {
   describe('NodeInfo', function () {
     describe('Direction', function () {
       it('should only have two values', function () {

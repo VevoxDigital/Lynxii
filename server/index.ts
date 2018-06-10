@@ -1,4 +1,4 @@
-import createDebugLogger from '@/util/debug'
+import createDebugLogger from 'server/util/debug'
 
 const _debug = createDebugLogger('init')
 
