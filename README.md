@@ -76,12 +76,12 @@ Bear in mind, Lynxii is a powerful tool and has securities in place to safeguard
 At current, Lynxii does not support using multiple networks or subnets. This is a feature we have planned and are working on.
 
 ## Contributing
-Lynxii is still in a very early development stage, so we're eager to hear your feedback. If you want to make some changes of your own to send to us, read over our [contribution guidelines](/doc/contributing.md) then submit a pull request!
+Lynxii is still in a very early development stage, so we're eager to hear your feedback. If you want to make some changes of your own to send to us, read over our [contribution guidelines](doc/contributing.md) then submit a pull request!
 
 ----
 
 *Myra ta Hayzel; Pal, Kifitae te Entra en na Loka*
 
-Designed and Developed by @CynicalBusiness with @VevoxDigital
+Designed and Developed by [@CynicalBusiness](https://github.com/CynicalBusiness) with [Vevox Digital](https://vevox.io)
 
 [GNU General Public License v3.0](/LICENSE)
