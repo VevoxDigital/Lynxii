@@ -1,4 +1,4 @@
-import { Node, NodeMap, NodeInfo } from 'server/block/node'
+import { NodeMap, NodeInfo } from 'server/block/node'
 import { generateUniqueID } from 'server/util'
 import * as assert from 'assert'
 

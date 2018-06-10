@@ -1,18 +1,33 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "moduleResolution": "node",
-    "target": "es5",
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "es6",
     "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "types": [ "node" ],
     "paths": {
       "@/*": [ "./*" ],
       "server/*": [ "./server/*" ]
-    },
-    "types": [
-      "node"
-    ]
+    }
   },
   "exclude": [
-    "lib"
+    "lib",
+    "dist",
+    "res",
+    "doc",
+    "coverage",
+    "node_modules",
+    "license.ts",
+    "update.ts",
+    "test/**/*.ts",
+    "test/**/*.tsx"
   ]
 }

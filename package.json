@@ -4,44 +4,86 @@
   "productName": "Lynxii",
   "description": "Simple and powerful dynamic communications network for your home, business, lab, or factory.",
   "private": true,
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node -r ts-node/register -r tsconfig-paths/register src/index.ts",
-    "test": "nyc mocha"
+    "build": "yarn clean:build && yarn compile",
+    "clean": "./node_modules/.bin/rimraf ./.tmp",
+    "clean:build": "yarn clean ./dist",
+    "clean:coverage": "yarn clean ./coverage ./.nyc_output",
+    "compile": "tsc && yarn license dist",
+    "license": "yarn __run license.ts",
+    "postinstall": "yarn update:project",
+    "start:server": "yarn __run server/index.ts",
+    "test": "nyc --clean mocha",
+    "update": "yarn __run update.ts",
+    "update:client": "yarn update client",
+    "update:project": "yarn update:server && yarn update:client",
+    "update:server": "yarn update server",
+    "__run": "node -r ts-node/register -r tsconfig-paths/register"
   },
   "nyc": {
-    "include": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
     "extensions": [
       ".ts",
       ".tsx"
     ],
     "require": [
       "ts-node/register",
-      "tsconfig-paths/register"
+      "tsconfig-paths/register",
+      "source-map-support/register"
+    ],
+    "include": [
+      "server/**/*.ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
     ],
     "reporter": [
       "lcov",
-      "text"
+      "text",
+      "text-summary"
     ],
-    "all": true
+    "check-coverage": true,
+    "sourceMap": true
   },
-  "config": {
-    "server": {
-      "port": 22055,
-      "address": "::1"
-    },
-    "license": ""
+  "project": {
+    "licenseExtensions": [
+      ".js"
+    ],
+    "forwardedPackageKeys": [
+      "name",
+      "version",
+      "productName",
+      "description",
+      "private",
+      "main",
+      "repository",
+      "author",
+      "contributors",
+      "license",
+      "bugs",
+      "homepage"
+    ],
+    "overridePackageKeys": {
+      "server": {
+        "config": {
+          "host": "::1",
+          "port": 14300
+        }
+      }
+    }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VevoxDigital/Lynxii.git"
   },
   "author": "Vevox Digital",
+  "contributors": [
+    {
+      "id": "CynicalBusiness",
+      "name": "Matthew Struble",
+      "email": "matt@vevox.io"
+    }
+  ],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/VevoxDigital/Lynxii/issues"
@@ -49,9 +91,11 @@
   "homepage": "https://vevox.io/lynxii",
   "dependencies": {
     "@types/debug": "^0.0.30",
+    "@types/minimist": "^1.2.0",
     "@types/node": "^10.3.1",
     "@types/uuid": "^3.4.3",
     "debug": "^3.1.0",
+    "minimist": "^1.2.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
@@ -59,6 +103,7 @@
     "@types/mocha": "^5.2.1",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "source-map-support": "^0.5.6",
     "ts-node": "^6.1.0",
     "tsconfig-paths": "^3.3.2",

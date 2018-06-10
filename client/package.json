@@ -1,0 +1,25 @@
+{
+  "name": "lynxii",
+  "version": "0.0.1-dev+client",
+  "productName": "Lynxii",
+  "description": "Simple and powerful dynamic communications network for your home, business, lab, or factory.",
+  "private": true,
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VevoxDigital/Lynxii.git"
+  },
+  "author": "Vevox Digital",
+  "contributors": [
+    {
+      "id": "CynicalBusiness",
+      "name": "Matthew Struble",
+      "email": "matt@vevox.io"
+    }
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/VevoxDigital/Lynxii/issues"
+  },
+  "homepage": "https://vevox.io/lynxii"
+}

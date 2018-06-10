@@ -94,7 +94,7 @@ export class Node extends EventEmitter implements NodeInfo.Definition {
   }
 
   /** Validates the given value, returning whether or not it is valid */
-  validate (value): boolean {
+  validate (value = this.value): boolean {
     const type = NodeInfo.Type[this.type].toLowerCase()
     return typeof value === type && this.validator
       ? !!this.validator(value)

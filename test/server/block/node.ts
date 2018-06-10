@@ -1,10 +1,9 @@
 import * as node from 'server/block/node'
-import Block from 'server/block/block'
 
 import { expect } from 'chai'
 import 'mocha'
 
-import { getEnumKeys, noop } from 'server/util'
+import { getEnumKeys } from 'server/util'
 
 describe('server/block/node', function () {
   describe('NodeInfo', function () {
