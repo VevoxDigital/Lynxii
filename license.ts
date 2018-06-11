@@ -4,7 +4,7 @@
   */
 
 
-import { promises as fs } from 'fs'
+import { promises as fs, Stats, constants as fsConst } from 'fs'
 import { execSync } from 'child_process'
 import * as path from 'path'
 import * as pkg from '@/package.json'
@@ -32,12 +32,18 @@ function hasExtension (file: string): boolean {
 async function processFile (file: string, prefix: string) {
   console.log(`prcs ${prefix}`)
 
-  const handle = await fs.open(file, 'r+')
+  const handle = await fs.open(file, fsConst.O_RDWR | fsConst.O_CREAT)
 
   const contents = await fs.readFile(handle, { encoding: 'utf-8' })
   await fs.writeFile(handle, header + contents, { encoding: 'utf-8' })
 
   await handle.close()
+}
+
+async function preprocessFile (fileName: string, file: string, filePrefix: string, stats: Stats) {
+  if (stats.isFile() && hasExtension(fileName)) await processFile(file, filePrefix)
+  else if (stats.isDirectory()) await enterDirectory(file, filePrefix)
+  else console.log(`skip ${filePrefix}`)
 }
 
 /** enters the given directory */
@@ -48,12 +54,9 @@ async function enterDirectory (dir: string, prefix: string) {
   for (const fileName of files) {
     const file = path.join(dir, fileName)
     const stats = await fs.stat(file)
-
     const filePrefix = path.join(prefix, fileName)
 
-    if (stats.isFile() && hasExtension(fileName)) await processFile(file, filePrefix)
-    else if (stats.isDirectory()) await enterDirectory(file, filePrefix)
-    else console.log(`skip ${filePrefix}`)
+    await preprocessFile(fileName, file, filePrefix, stats)
   }
 }
 
