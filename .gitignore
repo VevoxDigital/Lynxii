@@ -17,5 +17,3 @@ coverage/
 
 # Built files
 dist/
-build/
-output/

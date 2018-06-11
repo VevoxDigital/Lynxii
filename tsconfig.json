@@ -20,7 +20,6 @@
     }
   },
   "exclude": [
-    "lib",
     "dist",
     "res",
     "doc",
