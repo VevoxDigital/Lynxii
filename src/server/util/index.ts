@@ -3,6 +3,15 @@ import createDebugLogger from 'server/util/debug'
 
 const _debug = createDebugLogger('util')
 
+/** A point in space (or, in this case, on a map) */
+export interface Point {
+  /** The X value of the position */
+  x: number,
+
+  /** The Y value of the position */
+  y: number
+}
+
 /** A void-returning function that does nothing */
 export function noop () { }
 

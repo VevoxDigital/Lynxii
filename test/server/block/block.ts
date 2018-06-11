@@ -1,46 +1,75 @@
 import Block from 'server/block/block'
+import { NodeMap } from 'server/block/node'
 
-import { noop } from 'server/util'
+import { noop, generateUniqueID, idFormat } from 'server/util'
 
 import { expect } from 'chai'
 import 'mocha'
 
+const id = 'io.vevox.test.foo'
+const desc = {
+  nodes: [ ],
+  setupFunction: noop,
+  defaultDisplayName: 'Foo',
+  customFields: [ ],
+  canHaveMultipleInstances: true
+}
+const uuid = generateUniqueID()
+const pos = { x: 45067, y: 1337 }
+
 describe('server/block/block', function () {
   describe('Block', function () {
-    describe('<init>', function () {
-      it('should initialize a NodeMap and UUID', function () {
-        const b = new Block(noop, [ ])
-        expect(b.uuid).to.be.a('string')
-        expect(b.nodes.getInput(0)).to.be.undefined
+    describe('static from()', function () {
+      let block: Block
+
+      it('should create a block', function () {
+        block = Block.from(id, desc, uuid, pos)
+        expect(block).to.be.an.instanceOf(Block)
       })
 
-      it('should accept any non-zero-length string for a UUID', function () {
-        const init = (id: string) => {
-          return () => new Block(noop, [ ], id)
-        }
+      it('should fail for invalid UUIDs', function () {
+        expect(() => Block.from(id, desc, 'foo')).to.throw(/^Given UUID/)
+      })
 
-        let b: Block
-        expect(() => { b = init('foo')() }).to.not.throw()
-        expect(b.uuid).to.equal('foo')
+      it('should generate a UUID if none is provided', function () {
+        const block = Block.from(id, desc)
+        expect(block.uuid).to.match(idFormat)
+      })
 
-        expect(init('')).to.throw(/^UUID must/)
+      it('should initialize with the given ID and UUID', function () {
+        expect(block.uuid).to.equal(uuid)
+        expect(block.id).to.equal(id)
+      })
+
+      it('should initialize the default metadata', function () {
+        expect(block.meta.displayName).to.equal(desc.defaultDisplayName)
+        expect(block.meta.position).to.equal(pos)
+      })
+
+      it('should initialize a NodeMap', function () {
+        expect(block.nodes).to.be.an.instanceOf(NodeMap)
       })
     })
 
     describe('initialize()', function () {
       it('should invoke the function with proper context and no args', function (done) {
-        const b = new Block(function (arg) {
-          expect(this).to.equal(b)
-          expect(arg).to.be.undefined
-          done()
-        }, [ ])
+        let block
 
-        b.initialize()
+        const desc2 = Object.assign({ }, desc, {
+          setupFunction: function (arg) {
+            expect(this).to.equal(block)
+            expect(arg).to.be.undefined
+            done()
+          }
+        })
+
+        block = Block.from(id, desc2)
+        block.initialize()
       })
 
       it('should return itself', function () {
-        const b = new Block(noop, [ ])
-        expect(b.initialize()).to.equal(b)
+        const block = Block.from(id, desc)
+        expect(block.initialize()).to.equal(block)
       })
     })
   })
