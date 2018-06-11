@@ -1,7 +1,7 @@
 import * as pkg from '@/package.json'
 import * as path from 'path'
 import * as minimist from 'minimist'
-import { promises as fs } from 'fs'
+import { promises as fs, constants as fsConst } from 'fs'
 
 /** Generates the effective package JSON */
 function generateEffectivePackage (name: string, overrides, keys): any {
@@ -28,7 +28,7 @@ async function processProject (name: string) {
 
   for (const key of pkg.project.forwardedPackageKeys) keys[key] = pkg[key]
 
-  const handle = await fs.open(pkgDir, 'r+')
+  const handle = await fs.open(pkgDir, fsConst.O_RDWR | fsConst.O_CREAT)
 
   const currentPkg = JSON.parse((await fs.readFile(handle)).toString('utf-8'))
   keys['dependencies'] = currentPkg.dependencies
