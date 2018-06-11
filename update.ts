@@ -2,7 +2,6 @@ import * as pkg from '@/package.json'
 import * as path from 'path'
 import * as minimist from 'minimist'
 import { promises as fs } from 'fs'
-import { spawn } from 'child_process'
 
 /** Generates the effective package JSON */
 function generateEffectivePackage (name: string, overrides, keys): any {
@@ -13,26 +12,10 @@ function generateEffectivePackage (name: string, overrides, keys): any {
   return eff
 }
 
-/** installed the dependencies for a given dir */
-async function installDependencies (dir: string) {
-  return new Promise((resolve, reject) => {
-    const p = spawn('yarn', [], {
-      cwd: dir,
-      stdio: 'inherit'
-    })
-
-    p.on('error', reject)
-    p.on('exit', code => {
-      if (code === 0) resolve()
-      else reject(new Error('dependency installationed failed with code: ' + code))
-    })
-  })
-}
-
 /** Processes the given project */
 async function processProject (name: string) {
   console.log(`processing project: ${name}`)
-  const dir = path.join(__dirname, name)
+  const dir = path.join(__dirname, 'src', name)
   const stats = await fs.stat(dir)
   if (!stats.isDirectory()) throw new Error ('ENOTDIR: Given project is not a directory')
 
@@ -49,11 +32,10 @@ async function processProject (name: string) {
 
   const currentPkg = JSON.parse((await fs.readFile(handle)).toString('utf-8'))
   keys['dependencies'] = currentPkg.dependencies
+  keys['name'] += '-' + name
 
   await fs.writeFile(handle, JSON.stringify(generateEffectivePackage(name, overrides, keys), null, 2))
   await handle.close()
-
-  await installDependencies(dir)
 }
 
 const args = minimist(process.argv.slice(2))

@@ -6,11 +6,17 @@
   "private": true,
   "main": "index.ts",
   "scripts": {
+    "add:client": "yarn workspace lynxii-client add",
+    "add:root": "yarn add -W",
+    "add:server": "yarn workspace lynxii-server add",
     "build": "yarn clean:build && yarn compile",
     "clean": "./node_modules/.bin/rimraf ./.tmp",
     "clean:build": "yarn clean ./dist",
     "clean:coverage": "yarn clean ./coverage ./.nyc_output",
     "compile": "tsc && yarn license dist",
+    "enable:workspaces": "yarn config set workspaces-experimental true",
+    "enable:debug:win": "set DEBUG=lynxii*",
+    "enable:debug:nix": "export DEBUG=lynxii*",
     "license": "yarn __run license.ts",
     "postinstall": "yarn update:project",
     "start:server": "yarn __run server/index.ts",
@@ -89,14 +95,14 @@
     "url": "https://github.com/VevoxDigital/Lynxii/issues"
   },
   "homepage": "https://vevox.io/lynxii",
+  "workspaces": [
+    "src/server",
+    "src/client"
+  ],
   "dependencies": {
     "@types/debug": "^0.0.30",
-    "@types/minimist": "^1.2.0",
     "@types/node": "^10.3.1",
-    "@types/uuid": "^3.4.3",
-    "debug": "^3.1.0",
-    "minimist": "^1.2.0",
-    "uuid": "^3.2.1"
+    "debug": "^3.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",

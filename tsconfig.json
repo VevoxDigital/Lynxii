@@ -15,7 +15,8 @@
     "types": [ "node" ],
     "paths": {
       "@/*": [ "./*" ],
-      "server/*": [ "./server/*" ]
+      "server/*": [ "./src/server/*" ],
+      "client/*": [ "./src/client/*" ]
     }
   },
   "exclude": [

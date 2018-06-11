@@ -1,6 +1,6 @@
 {
-  "name": "lynxii",
-  "version": "0.0.1-dev+server",
+  "name": "lynxii-client",
+  "version": "0.0.1-dev+client",
   "productName": "Lynxii",
   "description": "Simple and powerful dynamic communications network for your home, business, lab, or factory.",
   "private": true,
@@ -21,9 +21,5 @@
   "bugs": {
     "url": "https://github.com/VevoxDigital/Lynxii/issues"
   },
-  "homepage": "https://vevox.io/lynxii",
-  "config": {
-    "host": "::1",
-    "port": 14300
-  }
+  "homepage": "https://vevox.io/lynxii"
 }
