@@ -23,6 +23,21 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://discord.gg/BjnWeTF">
+    <img alt="version"
+      src="http://vevox.io:3002/discord/163423181737164800.svg?style=flat-square&label=discord&logo=discord">
+  </a>
+  <a href="https://twitter.com/VevoxDigital">
+    <img alt="version"
+      src="http://vevox.io:3002/twitter/follow/VevoxDigital.svg?style=flat-square&label=follow&logo=twitter">
+  </a>
+  <a href="https://twitter.com/VevoxDigital">
+    <img alt="version"
+      src="http://vevox.io:3002/github/stars/VevoxDigital/Lynxii.svg?style=flat-square&label=stars&logo=github">
+  </a>
+</p>
+
 ----
 
 # Introduction
