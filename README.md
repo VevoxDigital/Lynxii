@@ -23,22 +23,22 @@
   </a>
 </p>
 
+----
+
 <p align="center">
   <a href="https://discord.gg/BjnWeTF">
     <img alt="version"
-      src="http://vevox.io:3002/discord/163423181737164800.svg?style=flat-square&label=discord&logo=discord">
+      src="http://vevox.io:3002/discord/163423181737164800.svg?style=social&label=discord&logo=discord">
   </a>
   <a href="https://twitter.com/VevoxDigital">
     <img alt="version"
-      src="http://vevox.io:3002/twitter/follow/VevoxDigital.svg?style=flat-square&label=follow&logo=twitter">
+      src="http://vevox.io:3002/twitter/follow/VevoxDigital.svg?style=social&label=follow&logo=twitter">
   </a>
   <a href="https://github.com/VevoxDigital/Lynxii/stargazers">
     <img alt="version"
-      src="http://vevox.io:3002/github/stars/VevoxDigital/Lynxii.svg?style=flat-square&label=stars&logo=github">
+      src="http://vevox.io:3002/github/stars/VevoxDigital/Lynxii.svg?style=social&label=stars&logo=github">
   </a>
 </p>
-
-----
 
 # Introduction
 Lynxii is a powerful tool for creating a dynamic and smarter network of devices; we aim to take the Internet of Things to the next level. At current, many devices are Wi-Fi capable, but can only do so much and usually need proprietary software to control it. On top of that, it's rare the device comes with an automated solution.
