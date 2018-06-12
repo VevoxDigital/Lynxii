@@ -32,7 +32,7 @@
     <img alt="version"
       src="http://vevox.io:3002/twitter/follow/VevoxDigital.svg?style=flat-square&label=follow&logo=twitter">
   </a>
-  <a href="https://https://github.com/VevoxDigital/Lynxii/stargazers">
+  <a href="https://github.com/VevoxDigital/Lynxii/stargazers">
     <img alt="version"
       src="http://vevox.io:3002/github/stars/VevoxDigital/Lynxii.svg?style=flat-square&label=stars&logo=github">
   </a>
