@@ -12,6 +12,25 @@ export interface Point {
   y: number
 }
 
+/** An error that was caused by another */
+export class DerivedError extends Error {
+  /** The error that caused this one */
+  public readonly cause: Error
+
+  /** Constructs a new error as normal, but appends the given error as a "cause" */
+  constructor (msg: string, cause?: Error) {
+    super(msg)
+
+    if (cause) {
+      cause.stack = 'Caused by: ' + cause.stack
+      const pat = /^.+$/gm
+
+      let line: RegExpExecArray
+      while (line = pat.exec(msg)) this.stack += '    ' + line + '\n'
+    }
+  }
+}
+
 /** A void-returning function that does nothing */
 export function noop () { }
 

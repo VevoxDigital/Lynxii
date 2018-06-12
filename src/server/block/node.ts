@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import Block from 'server/block/block'
+import { default as Block, BlockData } from 'server/block/block'
 
 export namespace NodeInfo {
   /** The direction a node is acting in */
@@ -37,7 +37,7 @@ export class NodeMap {
   private readonly inputs: NodeInfo.NodeMapNodes
   private readonly outputs: NodeInfo.NodeMapNodes
 
-  constructor (nodes: NodeInfo.Definition[], block: Block) {
+  constructor (nodes: NodeInfo.Definition[], block: Block, sendHandler: Function) {
     this.inputs = [ ]
     this.outputs = [ ]
 
@@ -48,7 +48,12 @@ export class NodeMap {
 
     for (const nodeDef of nodes) {
       const array = arrayMapping[nodeDef.direction]
-      if (array) array.push(new Node(nodeDef, block, array.length))
+      if (array) {
+        const node = new Node(nodeDef, block, array.length)
+        array.push(node)
+
+        node.on(BlockData.Event.SEND, data => sendHandler.call(block, array.length - 1, data))
+      }
     }
   }
 
@@ -99,5 +104,20 @@ export class Node extends EventEmitter implements NodeInfo.Definition {
     return typeof value === type && this.validator
       ? !!this.validator(value)
       : true
+  }
+
+  /**
+    * Sends the following data out of this node
+    * @param data The data to send
+    */
+  send (data) {
+    if (this.direction !== NodeInfo.Direction.OUTPUT) throw new Error('cannot send data from non-output node')
+    this.emit(BlockData.Event.SEND, data)
+  }
+
+  /** Recieves the given data */
+  recieve (data) {
+    if (this.direction !== NodeInfo.Direction.INPUT) throw new Error('cannot recieve data from non-input node')
+    this.emit(BlockData.Event.RECV, data)
   }
 }

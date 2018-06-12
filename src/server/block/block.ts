@@ -1,5 +1,6 @@
 import { NodeMap, NodeInfo } from 'server/block/node'
-import { generateUniqueID, Point, idFormat as uuidFormat } from 'server/util'
+import { generateUniqueID, Point, idFormat as uuidFormat, DerivedError } from 'server/util'
+import { EventEmitter } from 'events'
 import * as assert from 'assert'
 
 export namespace BlockData {
@@ -39,13 +40,27 @@ export namespace BlockData {
     RECV = 'block-data-recv',
     SEND = 'block-data-send'
   }
+
+  /** An error caused by a failed data recieve */
+  export class RecieveError extends DerivedError {
+    public readonly reason: string
+    public readonly block: Block
+    public readonly node: number
+
+    constructor (block: Block, nodeIndex: number, msg: string, cause?: Error) {
+      super(`Block {${block.uuid}} could not recieve data on ${nodeIndex}: ${msg}`, cause)
+      this.reason = msg
+      this.block = block
+      this.node = nodeIndex
+    }
+  }
 }
 
 /** A matching pattern for parsing a block's package */
 export const packagePattern = /^((?:[a-z0-9-]+\.)+)([a-z0-9-]+)$/
 
 /** A single block in a map */
-export default class Block {
+export default class Block extends EventEmitter {
   /**
     * Creates a block from a descriptor
     * @param id   The fully-quallified ID of this block
@@ -101,6 +116,7 @@ export default class Block {
     descriptor: BlockData.Descriptor,
     pos?: Point
   ) {
+    super()
     this.uuid = uuid
     this.name = name
     this.packageName = packageName
@@ -108,7 +124,7 @@ export default class Block {
     this.setupFunction = descriptor.setupFunction
     this.meta = Block.createDefaultMeta(descriptor, pos)
 
-    this.nodes = new NodeMap(descriptor.nodes, this)
+    this.nodes = new NodeMap(descriptor.nodes, this, this.send)
   }
 
   /** This block's fully-quallified ID */
@@ -120,5 +136,28 @@ export default class Block {
   initialize (): Block {
     this.setupFunction.call(this)
     return this
+  }
+
+  /**
+    * Sends data out of this block on the given node
+    * @param nodeIndex The index of the outbound node
+    * @param data      The data to send
+    */
+  send (nodeIndex: number, data) {
+    this.emit(BlockData.Event.SEND, nodeIndex, data)
+  }
+
+  /** Recieves inbound data on the given node */
+  recieve (nodeIndex: number, data) {
+    const node = this.nodes.getInput(nodeIndex)
+    if (!node) throw new BlockData.RecieveError(this, nodeIndex, 'Node index out of bounds')
+
+    try {
+      node.recieve(data)
+    } catch (err) {
+      throw new BlockData.RecieveError(this, nodeIndex, 'Data validation error', err)
+    }
+
+    this.emit(BlockData.Event.RECV, nodeIndex, data)
   }
 }
