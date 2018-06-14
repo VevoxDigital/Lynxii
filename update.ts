@@ -1,4 +1,4 @@
-import * as pkg from '@/package.json'
+import * as pkg from './package.json'
 import * as path from 'path'
 import * as minimist from 'minimist'
 import { promises as fs, constants as fsConst } from 'fs'

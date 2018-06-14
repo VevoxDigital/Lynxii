@@ -9,7 +9,7 @@
     "add:client": "yarn workspace lynxii-client add",
     "add:root": "yarn add -W",
     "add:server": "yarn workspace lynxii-server add",
-    "build": "yarn test && yarn clean:build && yarn compile && yarn copy:package",
+    "build": "yarn clean:build && yarn compile && yarn copy:package && yarn test",
     "clean": "rimraf ./.tmp",
     "clean:build": "yarn clean ./dist",
     "clean:coverage": "yarn clean ./coverage ./.nyc_output",
@@ -21,26 +21,31 @@
     "license": "yarn __run license.ts",
     "postinstall": "yarn update:project",
     "start:server": "yarn __run server/index.ts",
-    "test": "nyc --clean mocha",
+    "test": "nyc mocha",
     "update": "yarn __run update.ts",
     "update:client": "yarn update client",
     "update:project": "yarn update:server && yarn update:client",
     "update:server": "yarn update server",
-    "__run": "node -r ts-node/register -r tsconfig-paths/register"
+    "__run": "node -r ts-node/register"
   },
   "nyc": {
-    "extensions": [
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extension": [
       ".ts",
       ".tsx"
     ],
-    "exclude": [
-      "**/*.d.ts",
+    "require": [
+      "ts-node/register"
     ],
     "reporter": [
-      "html",
-      "text"
+      "text-summary",
+      "html"
     ],
-    "all": true
+    "sourceMap": true,
+    "instrument": true
   },
   "project": {
     "licenseExtensions": [
@@ -101,6 +106,7 @@
     "chai": "^4.1.2",
     "copyfiles": "^2.0.0",
     "mocha": "^5.2.0",
+    "remap-istanbul": "^0.11.1",
     "rimraf": "^2.6.2",
     "source-map-support": "^0.5.6",
     "ts-node": "^6.1.0",

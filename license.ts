@@ -7,7 +7,7 @@
 import { promises as fs, Stats, constants as fsConst } from 'fs'
 import { execSync } from 'child_process'
 import * as path from 'path'
-import * as pkg from '@/package.json'
+import * as pkg from './package.json'
 import * as minimist from 'minimist'
 
 const commit = execSync('git rev-parse HEAD').toString('utf-8').substring(0, 7).toUpperCase()
