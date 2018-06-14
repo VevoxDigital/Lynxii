@@ -1,4 +1,5 @@
 import * as node from 'server/block/node'
+import { noop } from 'server/util'
 
 import { expect } from 'chai'
 import 'mocha'
@@ -33,7 +34,7 @@ describe('server/block/node', function () {
 
     describe('<init>', function () {
       it('should create nodes for each definition', function () {
-        const map = new node.NodeMap([ input, input, output ], null)
+        const map = new node.NodeMap([ input, input, output ], null, noop)
 
         expect(map.inputCount).to.equal(2)
         expect(map.outputCount).to.equal(1)
@@ -41,7 +42,7 @@ describe('server/block/node', function () {
     })
 
     describe('getInput()', function () {
-      const map = new node.NodeMap([ input ], null)
+      const map = new node.NodeMap([ input ], null, noop)
 
       it('should return the node at the given index', function () {
         expect(map.getInput(0)).to.be.an.instanceOf(node.Node)
@@ -53,7 +54,7 @@ describe('server/block/node', function () {
     })
 
     describe('getOutput()', function () {
-      const map = new node.NodeMap([ output ], null)
+      const map = new node.NodeMap([ output ], null, noop)
 
       it('should return the node at the given index', function () {
         expect(map.getOutput(0)).to.be.an.instanceOf(node.Node)
