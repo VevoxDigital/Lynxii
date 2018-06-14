@@ -1,4 +1,4 @@
-import createDebugLogger from 'server/util/debug'
+import createDebugLogger from 'lynxii-server/util/debug'
 import { expect } from 'chai'
 
 import 'mocha'

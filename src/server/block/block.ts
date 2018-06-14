@@ -1,5 +1,5 @@
-import { NodeMap, NodeInfo } from 'server/block/node'
-import { generateUniqueID, Point, idFormat as uuidFormat, DerivedError } from 'server/util'
+import { NodeMap, NodeInfo } from './node'
+import { generateUniqueID, Point, idFormat as uuidFormat, DerivedError } from '../util'
 import { EventEmitter } from 'events'
 import * as assert from 'assert'
 

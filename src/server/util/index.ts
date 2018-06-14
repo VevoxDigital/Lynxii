@@ -1,5 +1,5 @@
 import { v4 as generateUUID } from 'uuid'
-import createDebugLogger from 'server/util/debug'
+import createDebugLogger from './debug'
 
 const _debug = createDebugLogger('util')
 

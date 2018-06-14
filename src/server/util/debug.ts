@@ -1,6 +1,6 @@
 import * as debug from 'debug'
 
-import { name } from '@/package.json'
+import { name } from '../package.json'
 
 /**
   * Creates a new debug logger

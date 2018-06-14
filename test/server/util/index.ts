@@ -1,4 +1,4 @@
-import * as util from 'server/util'
+import * as util from 'lynxii-server/util'
 
 import { expect } from 'chai'
 import 'mocha'

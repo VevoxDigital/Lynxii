@@ -33,24 +33,14 @@
       ".ts",
       ".tsx"
     ],
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register",
-      "source-map-support/register"
-    ],
-    "include": [
-      "server/**/*.ts"
-    ],
     "exclude": [
-      "**/*.d.ts"
+      "**/*.d.ts",
     ],
     "reporter": [
-      "lcov",
-      "text",
-      "text-summary"
+      "html",
+      "text"
     ],
-    "check-coverage": true,
-    "sourceMap": true
+    "all": true
   },
   "project": {
     "licenseExtensions": [
@@ -114,7 +104,6 @@
     "rimraf": "^2.6.2",
     "source-map-support": "^0.5.6",
     "ts-node": "^6.1.0",
-    "tsconfig-paths": "^3.3.2",
     "typescript": "^2.9.1"
   }
 }

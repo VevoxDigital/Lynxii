@@ -1,10 +1,10 @@
-import * as node from 'server/block/node'
-import { noop } from 'server/util'
+import * as node from 'lynxii-server/block/node'
+import { noop } from 'lynxii-server/util'
 
 import { expect } from 'chai'
 import 'mocha'
 
-import { getEnumKeys } from 'server/util'
+import { getEnumKeys } from 'lynxii-server/util'
 
 describe('server/block/node', function () {
   describe('NodeInfo', function () {

@@ -1,7 +1,7 @@
-import Block from 'server/block/block'
-import { NodeMap } from 'server/block/node'
+import Block from 'lynxii-server/block/block'
+import { NodeMap } from 'lynxii-server/block/node'
 
-import { noop, generateUniqueID, idFormat } from 'server/util'
+import { noop, generateUniqueID, idFormat } from 'lynxii-server/util'
 
 import { expect } from 'chai'
 import 'mocha'
