@@ -1,8 +1,9 @@
 
 import 'vx-util'
 import * as pkg from '../package.json'
-import { basename, join } from 'path'
+import { dirname, join } from 'path'
 import { readFileSync, writeFileSync } from 'fs'
+import * as mkdirp from 'mkdirp'
 
 /** Keys that are copied verbatim from the root package */
 const KEYS_VERBATIM: string[] = [
@@ -24,7 +25,7 @@ const KEYS_UNIQUE: IDictionary<IDictionary> = {
 const { name, version, workspaces = [] } = pkg
 
 for (const workspacePath of workspaces) {
-  const workspaceName = basename(workspacePath)
+  const workspaceName = workspacePath.substring(4).replace(/\//g, '-')
   process.stdout.write(`loading ${workspacePath}... `)
 
   const workspaceJSONFile = join(__dirname, '..', workspacePath, 'package.json')
@@ -67,6 +68,7 @@ for (const workspacePath of workspaces) {
 
   // write out the new file
   try {
+    mkdirp.sync(dirname(workspaceJSONFile))
     writeFileSync(
       workspaceJSONFile,
       JSON.stringify(newPackageKeys, null, 2),

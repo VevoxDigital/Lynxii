@@ -11,13 +11,20 @@
   "license": "GPL-v3.0",
   "private": true,
   "scripts": {
-    "update-workspace": "node --require ts-node/register util/workspace.ts"
+    "update-workspaces": "node --require ts-node/register util/workspace.ts && yarn"
   },
   "workspaces": [
+    "src/client/lib-js",
+    "src/client/lib-py",
+    "src/manager",
     "src/server"
   ],
   "devDependencies": {
+    "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.12.12",
-    "typescript": "^3.2.2"
+    "mkdirp": "^0.5.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2",
+    "vx-util": "^0.6.8"
   }
 }
