@@ -1,0 +1,9 @@
+
+# Vendor files, depenencies, etc.
+node_modules/
+
+# Output files
+target/
+
+# Logs, temporary files
+*.log

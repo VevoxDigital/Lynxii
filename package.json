@@ -1,0 +1,23 @@
+{
+  "name": "lynxii",
+  "version": "0.0.1-dev",
+  "description": "Intellegent devices for the masses",
+  "main": "target/js/index.js",
+  "repository": "https://lab.vevox.io/open-source/lynxii",
+  "author": "Vevox Digital",
+  "contributors": [
+    "Matthew Struble <matt@vevox.io>"
+  ],
+  "license": "GPL-v3.0",
+  "private": true,
+  "scripts": {
+    "update-workspace": "node --require ts-node/register util/workspace.ts"
+  },
+  "workspaces": [
+    "src/server"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "typescript": "^3.2.2"
+  }
+}

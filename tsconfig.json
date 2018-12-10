@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "lib": [ "es6" ],
+    "moduleResolution": "node",
+    "newLine": "lf",
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "inlineSourceMap": true,
+    "strict": true,
+    "target": "es5",
+    "types": [
+      "node"
+    ]
+  },
+  "exclude": [
+    "Gruntfile.js"
+  ]
+}

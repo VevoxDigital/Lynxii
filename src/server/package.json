@@ -1,0 +1,13 @@
+{
+  "name": "lynxii-server",
+  "version": "0.0.1-dev+server",
+  "productName": "Lynxii Dedicated Server",
+  "description": "Intellegent devices for the masses",
+  "author": "Vevox Digital",
+  "contributors": [
+    "Matthew Struble <matt@vevox.io>"
+  ],
+  "repository": "https://lab.vevox.io/open-source/lynxii",
+  "license": "GPL-v3.0",
+  "private": true
+}
