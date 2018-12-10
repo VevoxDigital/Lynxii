@@ -14,7 +14,7 @@
     "update-workspaces": "node --require ts-node/register util/workspace.ts && yarn"
   },
   "workspaces": [
-    "src/client/lib-js",
+    "src/client/js",
     "src/manager",
     "src/server"
   ],
