@@ -15,7 +15,6 @@
   },
   "workspaces": [
     "src/client/lib-js",
-    "src/client/lib-py",
     "src/manager",
     "src/server"
   ],
