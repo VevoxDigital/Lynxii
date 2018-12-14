@@ -11,7 +11,25 @@
   "license": "GPL-v3.0",
   "private": true,
   "scripts": {
+    "test": "nyc mocha",
     "update-workspaces": "node --require ts-node/register util/workspace.ts && yarn"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "src/**"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "all": true
   },
   "workspaces": [
     "src/common",
@@ -23,6 +41,9 @@
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.12.12",
     "mkdirp": "^0.5.1",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2",
     "vx-util": "^0.6.8"

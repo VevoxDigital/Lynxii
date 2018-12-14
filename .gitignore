@@ -4,6 +4,8 @@ node_modules/
 
 # Output files
 target/
+coverage/
 
 # Logs, temporary files
 *.log
+.nyc_output

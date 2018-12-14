@@ -1,6 +1,7 @@
 
+import 'vx-util'
 import * as assert from 'assert'
-import errors from './errors'
+import errors from '../errors'
 
 /**
  * A device address is a (supposedly) unique 64-bit unsigned integer (to what extent
@@ -35,7 +36,7 @@ import errors from './errors'
  * In the case of developers who also vend physical devices, we suggest re-using the OUI of
  * your current universal MACs, but flip the U/L bit.
  */
-export class DeviceAddress {
+export default class DeviceAddress {
 
   /** The pattern used to validate a device address */
   public static readonly ADDRESS_PATTERN = /[0-9A-F]{12}/

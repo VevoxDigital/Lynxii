@@ -1,1 +1,1 @@
-export * from './util'
+export { default as DeviceAddress } from './util/device-address'
