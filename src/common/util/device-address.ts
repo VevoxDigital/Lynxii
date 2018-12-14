@@ -114,26 +114,27 @@ export default class DeviceAddress {
   /**
    * Gets the numerical representation of this address
    */
-  public toNumber (): number {
+  public toNumber (includeInstanceID: boolean = true): number {
     return Number.parseInt(
-      this.addressOUI.toString(16) + this.addressNIC.toString(16) + this.addressInstanceID.toString(16), 16)
+      this.addressOUI.toString(16) + this.addressNIC.toString(16)
+        + (includeInstanceID ? this.addressInstanceID.toString(16) : ''), 16)
   }
 
   /**
    * Creates a string representation of this address
    * @param radix The radix of the string output, defaults to 16
    */
-  public toString (radix: number = 16): string {
-    return this.toNumber().toString(radix)
+  public toString (radix: number = 16, includeInstanceID?: boolean): string {
+    return this.toNumber(includeInstanceID).toString(radix)
   }
 
   /**
    * Creates a string representation of this address, with octet separators
    * @param sep The separator to use, defaults to a colon (:)
    */
-  public toSeparatedString (sep: string = ':'): string {
+  public toSeparatedString (sep: string = ':', includeInstanceID?: boolean): string {
     const octets = [ ]
-    const str = this.toString()
+    const str = this.toString(16, includeInstanceID)
 
     let pos = 0
     while (pos < str.length) {
