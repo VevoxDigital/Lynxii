@@ -1,6 +1,10 @@
 {
   "name": "lynxii-client-js",
   "version": "0.0.1-dev+client-js",
+  "scripts": {
+    "debug": "node -r ts-node/register index.ts",
+    "start": "node index.js"
+  },
   "description": "Intellegent devices for the masses",
   "author": "Vevox Digital",
   "contributors": [

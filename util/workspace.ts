@@ -22,6 +22,8 @@ const KEYS_UNIQUE: IDictionary<IDictionary> = {
   }
 }
 
+const SCRIPTS: IDictionary<IDictionary<string>> = { }
+
 const { name, version, workspaces = [] } = pkg
 
 for (const workspacePath of workspaces) {
@@ -45,9 +47,15 @@ for (const workspacePath of workspaces) {
     }
   }
 
+  // set up scripts
+  const scripts: IDictionary<string> = SCRIPTS[workspaceName] || { }
+  scripts.debug = 'node -r ts-node/register index.ts'
+  scripts.start = 'node index.js'
+
   const newPackageKeys: PackageJSON.IPackage = {
     name: `${name}-${workspaceName}`,
-    version: `${version}+${workspaceName}`
+    version: `${version}+${workspaceName}`,
+    scripts
   }
 
   // copy unique keys

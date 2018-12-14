@@ -1,6 +1,10 @@
 {
   "name": "lynxii-server",
   "version": "0.0.1-dev+server",
+  "scripts": {
+    "debug": "node -r ts-node/register index.ts",
+    "start": "node index.js"
+  },
   "productName": "Lynxii Dedicated Server",
   "description": "Intellegent devices for the masses",
   "author": "Vevox Digital",
