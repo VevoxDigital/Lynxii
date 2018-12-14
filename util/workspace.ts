@@ -17,6 +17,9 @@ const KEYS_VERBATIM: string[] = [
 
 /** Keys that are unique per workspace */
 const KEYS_UNIQUE: IDictionary<IDictionary> = {
+  common: {
+    scripts: { }
+  },
   server: {
     productName: 'Lynxii Dedicated Server'
   }
