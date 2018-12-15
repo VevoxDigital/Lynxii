@@ -2,6 +2,7 @@
 import 'vx-util'
 import * as assert from 'assert'
 import errorList from '../errors'
+import { numberToString } from './'
 
 /**
  * A device address is a (supposedly) unique 64-bit unsigned integer (to what extent
@@ -101,6 +102,12 @@ export default class DeviceAddress {
   /** The instance ID of this address */
   public readonly instance: number
 
+  public readonly ouiStr: string
+
+  public readonly nicStr: string
+
+  public readonly instanceStr: string
+
   /** Whether or not this address represents a physical device */
   public readonly isPhysicalDevice: boolean
 
@@ -119,23 +126,27 @@ export default class DeviceAddress {
 
     this.isPhysicalDevice = !(this.oui & DeviceAddress.BIT_MASK_UL)
     this.isInternal = !(this.oui & DeviceAddress.BIT_MASK_CAST)
+
+    this.ouiStr = numberToString(this.oui, 16, 6)
+    this.nicStr = numberToString(this.nic, 16, 6)
+    this.instanceStr = numberToString(this.instance, 16, 4)
   }
 
   /**
    * Gets the numerical representation of this address
    */
   public toNumber (includeInstanceID: boolean = true): number {
-    return Number.parseInt(
-      this.oui.toString(16) + this.nic.toString(16)
-        + (includeInstanceID ? this.instance.toString(16) : ''), 16)
+    return Number.parseInt(this.ouiStr + this.nicStr + (includeInstanceID ? this.instanceStr : ''), 16)
   }
 
   /**
    * Creates a string representation of this address
    * @param radix The radix of the string output, defaults to 16
    */
-  public toString (radix: number = 16, includeInstanceID?: boolean): string {
-    return this.toNumber(includeInstanceID).toString(radix)
+  public toString (radix: number = 16, includeInstanceID: boolean = true): string {
+    return radix === 16
+      ? this.ouiStr + this.nicStr + (includeInstanceID ? this.instanceStr : '')
+      : numberToString(this.toNumber(includeInstanceID), radix)
   }
 
   /**
@@ -148,7 +159,7 @@ export default class DeviceAddress {
 
     let pos = 0
     while (pos < str.length) {
-      octets.push(pos, pos + 2)
+      octets.push(str.substring(pos, pos + 2))
       pos += 2
     }
 
