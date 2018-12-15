@@ -1,7 +1,7 @@
 
 import 'vx-util'
 import * as assert from 'assert'
-import errors from '../errors'
+import errorList from '../errors'
 
 /**
  * A device address is a (supposedly) unique 64-bit unsigned integer (to what extent
@@ -54,9 +54,11 @@ export default class DeviceAddress {
    * Creates a device address from a physical MAC address
    * @param macAddress A hex string representing the MAC address
    */
-  public static createFromPhysicalAddress (macAddress: string): DeviceAddress {
+  public static createForPhysicalDevice (macAddress: string): DeviceAddress {
     // add on the zeros and parse to binary, then instance
-    return this.verifyDeviceIsMulticast(new this(macAddress, 0))
+    return this.verifyULBit(
+      this.verifyDeviceIsMulticast(new this(macAddress, 0)),
+      true)
   }
 
   /**
@@ -72,24 +74,32 @@ export default class DeviceAddress {
     const instanceID = await Math.floor(Math.random() * this.MAX_DEVICE_ID)
 
     // tack on the instance ID and create from it
-    return this.verifyDeviceIsMulticast(new this(deviceID, instanceID))
+    return this.verifyULBit(
+      this.verifyDeviceIsMulticast(new this(deviceID, instanceID)),
+      false)
   }
 
   // verification that the device is multicast when it should be,
   // since the constructor does not check this
   private static verifyDeviceIsMulticast (da: DeviceAddress): DeviceAddress {
-    assert.ok(da.isInternal, errors.DEVICE_ADDRESS_IS_UNICAST)
+    assert(!da.isInternal, errorList.DEVICE_ADDRESS_IS_UNICAST)
+    return da
+  }
+
+  // verification that the device has the correct UL bit
+  private static verifyULBit (da: DeviceAddress, shouldBePhysical: boolean): DeviceAddress {
+    assert(da.isPhysicalDevice === shouldBePhysical, errorList.DEVICE_ADDRESS_INCORRECT_UL)
     return da
   }
 
   /** The OUI bits of the address */
-  public readonly addressOUI: number
+  public readonly oui: number
 
   /** The NIC bits of the address */
-  public readonly addressNIC: number
+  public readonly nic: number
 
   /** The instance ID of this address */
-  public readonly addressInstanceID: number
+  public readonly instance: number
 
   /** Whether or not this address represents a physical device */
   public readonly isPhysicalDevice: boolean
@@ -99,16 +109,16 @@ export default class DeviceAddress {
 
   // actually build from the address, a hex string
   private constructor (address: string, instanceID: number) {
-    assert.ok(DeviceAddress.ADDRESS_PATTERN.exec(address), errors.DEVICE_ID_INVALID_FORMAT)
-    assert.ok(instanceID < DeviceAddress.MAX_DEVICE_ID, errors.DEVICE_INSTANCE_ID_TOO_LARGE)
-    assert.ok(instanceID >= 0, errors.DEVICE_INSTANCE_ID_NEGATIVE)
+    assert(DeviceAddress.ADDRESS_PATTERN.exec(address), errorList.DEVICE_ID_INVALID_FORMAT)
+    assert(instanceID < DeviceAddress.MAX_DEVICE_ID, errorList.DEVICE_INSTANCE_ID_TOO_LARGE)
+    assert(instanceID >= 0, errorList.DEVICE_INSTANCE_ID_NEGATIVE)
 
-    this.addressOUI = Number.parseInt(address.substring(0, 3), 16)
-    this.addressNIC = Number.parseInt(address.substring(3), 16)
-    this.addressInstanceID = instanceID
+    this.oui = Number.parseInt(address.substring(0, 6), 16)
+    this.nic = Number.parseInt(address.substring(3), 16)
+    this.instance = instanceID
 
-    this.isPhysicalDevice = (this.addressOUI & DeviceAddress.BIT_MASK_UL) === DeviceAddress.BIT_MASK_UL
-    this.isInternal = (this.addressOUI & DeviceAddress.BIT_MASK_CAST) === DeviceAddress.BIT_MASK_CAST
+    this.isPhysicalDevice = !(this.oui & DeviceAddress.BIT_MASK_UL)
+    this.isInternal = !(this.oui & DeviceAddress.BIT_MASK_CAST)
   }
 
   /**
@@ -116,8 +126,8 @@ export default class DeviceAddress {
    */
   public toNumber (includeInstanceID: boolean = true): number {
     return Number.parseInt(
-      this.addressOUI.toString(16) + this.addressNIC.toString(16)
-        + (includeInstanceID ? this.addressInstanceID.toString(16) : ''), 16)
+      this.oui.toString(16) + this.nic.toString(16)
+        + (includeInstanceID ? this.instance.toString(16) : ''), 16)
   }
 
   /**

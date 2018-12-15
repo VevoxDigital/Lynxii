@@ -16,4 +16,4 @@ let errorCode = 1000
 for (const error in Object.keys(eList)) eList[error] = `[${errorCode++} ${error}] ${eList[error]}`
 
 /** The list of errors Lynxii may fire */
-export default errorList
+export default eList as typeof errorList

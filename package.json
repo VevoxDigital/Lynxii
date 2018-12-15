@@ -38,8 +38,11 @@
     "src/server"
   ],
   "devDependencies": {
+    "@types/chai": "^4.1.7",
     "@types/mkdirp": "^0.5.2",
+    "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.12",
+    "chai": "^4.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
