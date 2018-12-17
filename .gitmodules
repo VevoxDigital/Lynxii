@@ -1,6 +1,3 @@
-[submodule "src/client/js"]
-	path = src/client/js
-	url = https://lab.vevox.io/open-source/lynxii-client-js
 [submodule "src/manager"]
 	path = src/manager
 	url = https://lab.vevox.io/open-source/lynxii-manager
