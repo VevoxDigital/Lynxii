@@ -9,3 +9,4 @@ coverage/
 # Logs, temporary files
 *.log
 .nyc_output
+cwd/
