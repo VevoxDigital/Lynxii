@@ -8,7 +8,7 @@ import { join } from 'path'
  */
 export function getCurrentPIDSync (cwd: string): number {
   try {
-    return Number.parseInt(readFileSync(join(cwd), '.pid'), 10)
+    return Number.parseInt(readFileSync(join(cwd), '.pid'), 10) || 0
   } catch (err) {
     if (!err.message.match(/^ENOENT/)) throw err
     return 0

@@ -13,5 +13,12 @@
   ],
   "repository": "https://lab.vevox.io/open-source/lynxii",
   "license": "GPL-v3.0",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "vx-util": "^0.6.8"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.0"
+  }
 }
