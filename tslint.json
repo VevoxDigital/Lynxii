@@ -10,7 +10,7 @@
     "no-implicit-dependencies": false,
     "no-reference": false,
     "no-submodule-imports": false,
-    "quotemark": [ true, "single", "jsx-single" ],
+    "quotemark": [ true, "single" ],
     "semicolon": [ true, "never" ],
     "space-before-function-paren": [ true, "always" ],
     "trailing-comma": [

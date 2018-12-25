@@ -16,6 +16,7 @@
   "private": true,
   "dependencies": {
     "minimist": "^1.2.0",
+    "strict-event-emitter-types": "^2.0.0",
     "vx-util": "^0.6.8"
   },
   "devDependencies": {
