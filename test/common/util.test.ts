@@ -1,8 +1,8 @@
 
-import 'mocha'
 import * as chai from 'chai'
 import * as chaiAsPromised from 'chai-as-promised'
 import { DeviceAddress, errorList, numberToString } from 'lynxii-common'
+import 'mocha'
 
 chai.use(chaiAsPromised)
 const { expect } = chai

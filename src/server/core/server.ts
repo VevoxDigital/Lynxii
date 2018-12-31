@@ -37,9 +37,9 @@ export default class LynxiiServer {
   public message (level: LoggingLevel, message: string): void
 
   /* Override implementation */
-  public message (level: LoggingLevel | string, message?: string): void {
-    if (typeof level === 'string') this.events.emit('message', LoggingLevel.INFO, level)
-    else this.events.emit('message', level, message || '')
+  public message (level: LoggingLevel, message?: string): void {
+    if (!message) this.events.emit('message', LoggingLevel.INFO, level)
+    else this.events.emit('message', level, message)
   }
 
   /** Attach all event handlers */
