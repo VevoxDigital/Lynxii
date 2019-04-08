@@ -1,6 +1,0 @@
-[submodule "src/manager"]
-	path = src/manager
-	url = ../manager
-[submodule "src/client/js"]
-	path = src/client/js
-	url = ../client-js
