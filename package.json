@@ -1,6 +1,6 @@
 {
   "name": "lynxii",
-  "version": "0.0.1-dev",
+  "version": "0.1.0",
   "description": "Intellegent devices for the masses",
   "main": "target/js/index.js",
   "repository": "https://lab.vevox.io/open-source/lynxii",
@@ -10,9 +10,13 @@
   ],
   "license": "GPL-v3.0",
   "private": true,
+  "engines": {
+    "node": ">=11"
+  },
   "scripts": {
-    "test": "nyc mocha",
-    "update-workspaces": "node --require ts-node/register util/workspace.ts && yarn"
+    "compile": "tsc",
+    "prepublish": "tsc",
+    "test": "nyc mocha"
   },
   "nyc": {
     "extension": [
@@ -42,16 +46,15 @@
     "@types/chai-as-promised": "^7.1.0",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.12",
+    "@types/node": "^11.13.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "mkdirp": "^0.5.1",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.1",
     "nyc": "^13.1.0",
     "source-map-support": "^0.5.9",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.12.0",
-    "typescript": "^3.2.2",
-    "vx-util": "^0.6.8"
+    "ts-node": "^8.0.3",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.2"
   }
 }
