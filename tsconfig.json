@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDirs": [ "src", "test" ],
     "outDir": "lib",
     "declaration": true,
     "declarationDir": "lib",
