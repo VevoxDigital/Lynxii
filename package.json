@@ -2,7 +2,8 @@
   "name": "lynxii",
   "version": "0.1.0",
   "description": "Intellegent devices for the masses",
-  "main": "target/js/index.js",
+  "main": "lib/server.js",
+  "bin": "lib/bin.js",
   "repository": "https://lab.vevox.io/open-source/lynxii",
   "author": "Vevox Digital",
   "contributors": [
@@ -35,12 +36,6 @@
     ],
     "all": true
   },
-  "workspaces": [
-    "src/common",
-    "src/client/js",
-    "src/manager",
-    "src/server"
-  ],
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/chai-as-promised": "^7.1.0",
@@ -56,5 +51,9 @@
     "ts-node": "^8.0.3",
     "tslint": "^5.15.0",
     "typescript": "^3.4.2"
+  },
+  "dependencies": {
+    "@vevox/util-event": "^0.1.0",
+    "@vevox/util-net": "^0.1.0"
   }
 }

@@ -5,6 +5,7 @@ node_modules/
 # Output files
 target/
 coverage/
+lib/
 
 # Logs, temporary files
 *.log
