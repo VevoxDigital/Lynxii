@@ -1,0 +1,34 @@
+# Lynxii CI configuration.
+# https://travis-ci.org/VevoxDigital/Lynxii
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=7fa84e1393a582d1023c7cf39e64a35c14ab52c6fd78b81edf44b1d213cf9f41
+
+language: node_js
+node_js:
+- 'node' # latest stable
+- '11.0' # minimum
+
+# Build only master/dev. Other branches are docs, examples, or legacy.
+branches:
+  include:
+  - develop
+  - master
+
+# Before build script
+before_script:
+# Grab CC Test Reporter and run its pre-build script
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- ./cc-test-reporter before-build
+
+# Install necessary packages before runtime
+install:
+- yarn
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT -t lcov
+
+notifications:
+  email: false
