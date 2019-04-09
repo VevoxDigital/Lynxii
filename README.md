@@ -1,4 +1,4 @@
-![Lynxii](/res/lynxii.svg)
+![Lynxii](res/lynxii.svg)
 
 ***Intelligent Devices for the Masses** - Fully Programmable Smart Device Network*
 
