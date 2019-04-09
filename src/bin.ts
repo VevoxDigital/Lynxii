@@ -1,6 +1,6 @@
 
 import '@vevox/util-common'
-import * as fs from 'fs'
+import { spawn } from 'child_process'
 import * as minimist from 'minimist'
 import { join } from 'path'
 import * as pkg from '../package.json'
@@ -20,7 +20,8 @@ Options:
   -h, --host      The hostname to bind to when launching
   -J, --json      Output results as JSON instead of as human-readable string
   -p, --port      The port to bind to when launching
-  -P, --pid-file  A path to the PID file, defaults to 'daemon.pid'
+  -n, --namespace The namespace for the daemon
+      --node      A path to a node binary to use for spawning the daemon
   -v, --verbose   Be more verbose in command output
       --version   Alias for the 'version' command
 
@@ -66,6 +67,17 @@ matt@vevox.io
 
 Myra ta Hayzel; Pal, Kifitae te Entra en na Loka`
 
+function start (args: minimist.ParsedArgs) {
+  process.stdout.writeln('Trying to start the daemon...')
+  const svr = spawn(args.node ? String(args.node) : 'node', [ join(__dirname, 'main'), ...process.argv.slice(2) ], {
+    cwd: process.cwd(),
+    detached: true,
+    stdio: 'ignore' // TODO need access to this!
+  })
+  svr.unref()
+  process.stdout.writeln('Daemon started.')
+}
+
 function main (args: minimist.ParsedArgs) {
   const cmd = args._[0]
 
@@ -78,27 +90,11 @@ function main (args: minimist.ParsedArgs) {
   if (args.help || cmd === 'help') return process.stdout.writeln(help)
   if (args.about || cmd === 'about') return process.stdout.writeln(about)
 
-  const [ pid, pidFD ] = getPID(args.P || args['pid-file'] || 'daemon.pid')
-
-  process.stdout.writeln('pid: ' + pid)
-
-  fs.closeSync(pidFD)
-}
-
-/**
- * Gets a PID from a given PID file, returning it and the file descriptor to the PID file
- * @param pidFileName The name of the PID file
- */
-function getPID (pidFileName: string): [ number, number ] {
-  if (typeof pidFileName !== 'string' || !pidFileName.length) {
-    throw new Error('PID file name, if specified, must be a string')
+  switch (cmd.toLowerCase()) {
+    case 'start':
+      start(args)
+      break
   }
-  const pidFile = join(process.cwd(), pidFileName)
-  const pidFD = fs.openSync(pidFile, fs.constants.O_RDWR | fs.constants.O_CREAT)
-
-  const buffer = Buffer.alloc(64) // 64 should be fine for this
-  const read = fs.readSync(pidFD, buffer, 0, buffer.length, null)
-  return [ Number.parseInt(Buffer.from(buffer, 0, read).toString().trim(), 10), pidFD ]
 }
 
 main(minimist(process.argv.slice(2)))
