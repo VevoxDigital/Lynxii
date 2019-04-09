@@ -11,3 +11,4 @@ lib/
 *.log
 .nyc_output
 cwd/
+daemon.pid

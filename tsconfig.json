@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDirs": [ "src", "test" ],
+    "rootDir": "src",
     "outDir": "lib",
     "declaration": true,
     "declarationDir": "lib",
@@ -28,6 +28,7 @@
   "exclude": [
     "node_modules",
     "lib",
-    "target"
+    "target",
+    "test"
   ]
 }
