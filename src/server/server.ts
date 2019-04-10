@@ -63,5 +63,6 @@ export default class LynxiiServer {
 
   public stop () {
     if (this.intv) clearInterval(this.intv)
+    this.clearPID()
   }
 }

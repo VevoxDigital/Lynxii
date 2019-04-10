@@ -1,11 +1,12 @@
 
 import * as minimist from 'minimist'
+import { getNamespace } from './process-helper'
 import LynxiiServer from './server/server'
 
 const args = minimist(process.argv.slice(2))
 
 const server = new LynxiiServer({
-  namespace: args.n || args.namespace || 'default'
+  namespace: getNamespace(args)
 })
 server.start()
 

@@ -1,5 +1,6 @@
 /// <reference path="./process.d.ts" />
 
+import { ParsedArgs } from 'minimist'
 import { platform, tmpdir } from 'os'
 import { join } from 'path'
 import { name } from '../package.json'
@@ -16,27 +17,35 @@ process.stderr.writeln = writeln.bind(process.stderr)
  * Gets the path to the PID file for a given namespace
  *
  * - On Windows, this is `%TEMP%\lynxii\<namespace>\pid`
- * - On UNIX, this is `/run/lynxii/<namespace>/pid`
+ * - On UNIX, this is `/tmp/lynxii/<namespace>/pid`
  * @param namespace The namespace to use
  * @see #getSocketPaths
  */
 export function getPIDPath (namespace: string): string {
-  return join(platform() === 'win32' ? tmpdir() : '/run', name, namespace, 'pid')
+  return join(tmpdir(), name, namespace, 'pid')
 }
 
 /**
  * Gets the socket paths for a given namespace.
  *
  * - On Windows, this will be `\\?\pipe\lynxii\<namespace>\fdX`.
- * - On UNIX, this will be `/run/lynxii/<namespace>/fdX`
+ * - On UNIX, this will be `/tmp/lynxii/<namespace>/fdX`
  * @param namespace The namespace to use
  * @see #getPIDPath
  */
 export function getSocketPaths (namespace: string): [ string, string, string ] {
-  const prefix = join(platform() === 'win32' ? '\\\\?\\pipe' : '/run', name, namespace)
+  const prefix = join(platform() === 'win32' ? '\\\\?\\pipe' : tmpdir(), name, namespace)
   return [
     join(prefix, 'fd0'),
     join(prefix, 'fd1'),
     join(prefix, 'fd2')
   ]
+}
+
+/**
+ * Gets the namespace from the given arguments
+ * @param args The args
+ */
+export function getNamespace (args: ParsedArgs): string {
+  return (args.n || args.namespace || 'default').replace(/[^\w\s]/g, '-').toLowerCase()
 }
