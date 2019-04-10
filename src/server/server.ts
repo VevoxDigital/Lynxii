@@ -1,7 +1,8 @@
 import * as fs from 'fs'
 import * as mkdirp from 'mkdirp'
+import * as net from 'net'
 import { dirname } from 'path'
-import { getPIDPath } from '../process-helper'
+import { getPIDPath, getSocketPath } from '../process-helper'
 
 export interface ILynxiiServerOptions {
   /** The namespace this server is running in */
@@ -22,9 +23,13 @@ export default class LynxiiServer {
   public readonly opts: ILynxiiServerOptions
 
   private intv?: NodeJS.Timeout
+  private socket: net.Server
+  private socketPool: net.Socket[] = []
 
   public constructor (opts: ILynxiiServerOptions) {
     this.opts = opts
+
+    this.socket = net.createServer()
   }
 
   /**
@@ -38,6 +43,17 @@ export default class LynxiiServer {
     fs.writeSync(fd, Buffer.from(String(process.pid)))
   }
 
+  public createSocket () {
+    this.socket.on('connection', socket => {
+      this.socketPool.push(socket)
+
+      socket.once('close', () => {
+        this.socketPool.splice(this.socketPool.indexOf(socket), 1)
+      })
+    })
+    this.socket.listen(getSocketPath(this.opts.namespace))
+  }
+
   /**
    * Clears a PID file
    */
@@ -47,6 +63,10 @@ export default class LynxiiServer {
     } catch (err) {
       if (err.code !== 'ENOENT') throw err
     }
+  }
+
+  public closeSocket () {
+    this.socket.close()
   }
 
   public start () {
@@ -63,6 +83,7 @@ export default class LynxiiServer {
 
   public stop () {
     if (this.intv) clearInterval(this.intv)
+    this.closeSocket()
     this.clearPID()
   }
 }
