@@ -22,7 +22,7 @@ process.stderr.writeln = writeln.bind(process.stderr)
  * @see #getSocketPaths
  */
 export function getPIDPath (namespace: string): string {
-  return join(tmpdir(), name, namespace, 'pid')
+  return join(tmpdir(), name, namespace + '.pid')
 }
 
 /**
@@ -33,13 +33,8 @@ export function getPIDPath (namespace: string): string {
  * @param namespace The namespace to use
  * @see #getPIDPath
  */
-export function getSocketPaths (namespace: string): [ string, string, string ] {
-  const prefix = join(platform() === 'win32' ? '\\\\?\\pipe' : tmpdir(), name, namespace)
-  return [
-    join(prefix, 'fd0'),
-    join(prefix, 'fd1'),
-    join(prefix, 'fd2')
-  ]
+export function getSocketPath (namespace: string): string {
+  return join(platform() === 'win32' ? '\\\\?\\pipe' : tmpdir(), name, namespace + '.sock')
 }
 
 /**
