@@ -77,7 +77,7 @@ export default class LynxiiServer {
   public closeSocket () {
     for (const key of Object.keys(this.socketPool)) {
       const stream = this.socketPool[key]!
-      stream.write('connection closed')
+      stream.write('connection closed\n')
       stream.end()
       delete this.socketPool[key]
     }

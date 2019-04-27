@@ -18,12 +18,11 @@ Options:
   -c, --config    A path to a config file to use, defaults to 'lynxii.json'
       --help      Alias for the 'help' command
   -h, --host      The hostname to bind to when launching
-  -J, --json      Output results as JSON instead of as human-readable string
   -p, --port      The port to bind to when launching
   -n, --namespace The namespace for the server
       --node      A path to a node binary to use for spawning the daemon
-  -v, --verbose   Be more verbose in command output
-      --version   Alias for the 'version' command
+  -V, --verbose   Be more verbose in command output
+  -v  --version   Alias for the 'version' command
 
 Commands:
   about     Prints information about Lynxii
@@ -69,12 +68,14 @@ Myra ta Hayzel; Pal, Kifitae te Entra en na Loka`
 
 function start (args: minimist.ParsedArgs) {
   process.stdout.writeln('Trying to start the daemon...')
+  const attached = !!args.attached || !!args.a
+
   const svr = spawn(args.node ? String(args.node) : 'node', [ join(__dirname, 'main'), ...process.argv.slice(2) ], {
     cwd: process.cwd(),
-    detached: true,
-    stdio: 'ignore' // TODO need access to this!
+    detached: !attached,
+    stdio: attached ? 'inherit' : 'ignore'
   })
-  svr.unref()
+  if (!attached) svr.unref()
   process.stdout.writeln('Daemon started.')
 }
 
@@ -148,6 +149,8 @@ function main (args: minimist.ParsedArgs) {
       status(namespace)
       break
   }
+
+  // process.once('SIGINT', () => stop(namespace))
 }
 
 main(minimist(process.argv.slice(2)))
