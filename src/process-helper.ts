@@ -3,6 +3,7 @@
 import { ParsedArgs } from 'minimist'
 import { platform, tmpdir } from 'os'
 import { join } from 'path'
+import 'vx-util'
 import { name } from '../package.json'
 
 // tslint:disable only-arrow-functions

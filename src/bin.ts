@@ -1,5 +1,4 @@
 
-import '@vevox/util-common'
 import { spawn } from 'child_process'
 import { readFileSync, unlinkSync } from 'fs'
 import * as minimist from 'minimist'
@@ -124,7 +123,7 @@ function status (namespace: string) {
 }
 
 function main (args: minimist.ParsedArgs) {
-  const cmd = args._[0]
+  const cmd = args._[0] || 'help'
 
   if (args.J || args.json) {
     process.stdout.json = true

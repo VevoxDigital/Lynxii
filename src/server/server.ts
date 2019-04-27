@@ -24,7 +24,7 @@ export default class LynxiiServer {
 
   private intv?: NodeJS.Timeout
   private socket: net.Server
-  private socketPool: net.Socket[] = []
+  private socketPool: Dictionary<net.Socket> = { }
 
   public constructor (opts: ILynxiiServerOptions) {
     this.opts = opts
@@ -44,13 +44,22 @@ export default class LynxiiServer {
   }
 
   public createSocket () {
-    this.socket.on('connection', socket => {
-      this.socketPool.push(socket)
+    this.socket.on('connection', stream => {
+      const id = Date.now().toString(16)
+      this.socketPool[id] = stream
+      process.stdout.writeln(`connected: ${id}`)
 
-      socket.once('close', () => {
-        this.socketPool.splice(this.socketPool.indexOf(socket), 1)
+      stream.once('end', () => {
+        process.stdout.writeln(`disconnected: ${id}`)
+        delete this.socketPool[id]
+      })
+
+      stream.on('data', data => {
+        stream.write(`${id}: ${data}`)
+        process.stdout.writeln(`${id}: ${data}`)
       })
     })
+
     this.socket.listen(getSocketPath(this.opts.namespace))
   }
 
@@ -66,11 +75,19 @@ export default class LynxiiServer {
   }
 
   public closeSocket () {
+    for (const key of Object.keys(this.socketPool)) {
+      const stream = this.socketPool[key]!
+      stream.write('connection closed')
+      stream.end()
+      delete this.socketPool[key]
+    }
+
     this.socket.close()
   }
 
   public start () {
     this.createPID()
+    this.createSocket()
     process.stdout.writeln('hello, world!')
 
     this.intv = setInterval(() => {

@@ -16,7 +16,7 @@
   },
   "scripts": {
     "compile": "tsc",
-    "prepublish": "tsc",
+    "prepare": "tsc",
     "test": "nyc mocha"
   },
   "nyc": {
@@ -54,8 +54,7 @@
     "typescript": "^3.4.2"
   },
   "dependencies": {
-    "@vevox/util-event": "^0.1.0",
-    "@vevox/util-net": "^0.1.0",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "vx-util": "^0.16.3"
   }
 }
