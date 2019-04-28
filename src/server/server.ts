@@ -20,6 +20,7 @@ export default class LynxiiServer {
   /** The character used to separate the end of the startup sequence */
   public static readonly SEP = '\u001F'
 
+  /** Options the server was initialized with */
   public readonly opts: ILynxiiServerOptions
 
   private intv?: NodeJS.Timeout
@@ -61,6 +62,14 @@ export default class LynxiiServer {
     })
 
     this.socket.listen(getSocketPath(this.opts.namespace))
+  }
+
+  /**
+   * Send data to all listeners on the domain socket
+   * @param data The data to send
+   */
+  public send (data: string | Buffer | Uint8Array): void {
+    for (const key in Object.keys(this.socketPool)) this.socketPool[key]!.write(data)
   }
 
   /**

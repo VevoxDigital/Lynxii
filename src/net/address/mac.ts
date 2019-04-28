@@ -1,7 +1,7 @@
 import { createReadStream } from 'fs'
 import { join } from 'path'
 import { createInterface } from 'readline'
-import { AbstractAddress } from './address'
+import AbstractAddress from './address'
 
 export interface OUI { // tslint:disable-line interface-name
   /** The reserved OUI (i.e. FF-FF-FF) */
@@ -23,7 +23,7 @@ export interface OUI { // tslint:disable-line interface-name
   country: string
 }
 
-export class MACAddress extends AbstractAddress {
+export default class MACAddress extends AbstractAddress {
 
   /** The group width of MAC addresses */
   public static readonly GROUP_WIDTH = 8
@@ -35,13 +35,13 @@ export class MACAddress extends AbstractAddress {
   public static readonly BITS = 48
 
   /** A bit mask for the uni-/multi-cast bit */
-  public static readonly MASK_CAST = 1n
+  public static readonly MASK_CAST = 0x10000000000n
 
   /** A bit mask for the global/local bit */
-  public static readonly MASK_GLOBAL = 2n
+  public static readonly MASK_GLOBAL = 0x20000000000n
 
   /** `FF:FF:FF:FF:FF:FF`: The broadcast address */
-  public static readonly BROADCAST = MACAddress.fromString('FF:FF:FF:FF:FF:FF')
+  public static readonly BROADCAST = new MACAddress(2 ** MACAddress.BITS - 1)
 
   // tslint:disable-next-line max-line-length
   public static readonly OUI_LOOKUP_PATTERN = /^([\w-]+)\s+\(hex\)\s+(.+)\n([\w]+)\s+\(base 16\).+(?:\n\s+(.+)(?:\n\s+(.+)(?:\n\s+(\w{2}))?)?)?$/

@@ -3,7 +3,7 @@ import { IComparable, ISerializeable } from 'vx-util'
 /**
  * An arbitrary octet address using an arbitrary number of bits
  */
-export abstract class AbstractAddress
+export default abstract class AbstractAddress
 implements ISerializeable<Array<bigint>>, IComparable<AbstractAddress> {
 
   /**
@@ -16,7 +16,7 @@ implements ISerializeable<Array<bigint>>, IComparable<AbstractAddress> {
    */
   public static valueFromString (address: string, groupWidth: number,
                                  groupCount: number, sep: string = ':', radix: number = 16): bigint {
-    const groups = address.split(sep).slice(0, groupCount).map(n => BigInt(Number.parseInt(n, radix)))
+    const groups = address.split(sep).slice(0, groupCount).map(n => BigInt(Number.parseInt(n, radix) || 0))
     return this.valueFromGroups(groups, groupWidth, groupCount)
   }
 
@@ -27,10 +27,10 @@ implements ISerializeable<Array<bigint>>, IComparable<AbstractAddress> {
    * @param groupCount The group count of the address
    */
   public static valueFromGroups (groups: Array<bigint>, groupWidth: number, groupCount: number): bigint {
-    let addr = 0n
-    for (let i = 0; i < groupCount; i++) {
-      addr = addr << BigInt(groupWidth)
-        & BigInt.asIntN(groupWidth, BigInt(groups[i] || 0))
+    let addr = groups[0] || 0n
+    for (let i = 1; i < groupCount; i++) {
+      addr = (addr << BigInt(groupWidth))
+        | BigInt.asUintN(groupWidth, BigInt(groups[i] || 0))
     }
     return addr
   }
@@ -113,6 +113,7 @@ implements ISerializeable<Array<bigint>>, IComparable<AbstractAddress> {
 
   public compare (address: AbstractAddress) {
     const diff = this.value - address.value
+    // this is to avoid downcasting issues from BigInts
     return diff > 0 ? 1 : diff < 0 ? -1 : 0
   }
 
