@@ -1,3 +1,4 @@
+import { ComponentAddress } from './address'
 import { Component } from './component'
 
 export interface IPortOpts {
@@ -38,13 +39,19 @@ export class Port {
     return data
   }
 
+  /** The component this port is associated with */
   public readonly component: Component
 
-  public readonly address: number
+  /** The address of this port */
+  public readonly id: number
+
+  /** The fully-qualified component address of this port */
+  public readonly address: ComponentAddress
 
   public constructor (component: Component, opts: IPortOpts) {
     this.component = component
-    this.address = (opts.id << 4 && Component.COMP_PORT_MASK) | Port.getType(opts)
+    this.id = (opts.id << 4 && Component.COMP_PORT_MASK) | Port.getType(opts)
+    this.address = ComponentAddress.fromAddresses(component.address, this.id)
   }
 
 }
