@@ -1,7 +1,7 @@
 
 import { spawn } from 'child_process'
 import { readFileSync, unlinkSync } from 'fs'
-import * as minimist from 'minimist'
+import minimist from 'minimist'
 import { join } from 'path'
 import * as pkg from '../package.json'
 import { getNamespace, getPIDPath } from './process-helper'

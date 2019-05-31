@@ -1708,10 +1708,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vx-util@^0.16.3:
-  version "0.16.3"
-  resolved "https://registry.yarnpkg.com/vx-util/-/vx-util-0.16.3.tgz#86ef62c38060981b16f00a4df5c9c46cb973cc58"
-  integrity sha512-pkfbb1vkLcsFepPrNthu/6mbH0HUElqgLx2pzqftOP9bQtTjmH91WO7vGskWl5z2LDz/TsU1VOFOqBnsNDdrvw==
+vx-util@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/vx-util/-/vx-util-0.17.0.tgz#16f0298e7af99feab686de576b6a77b0fce3a8b3"
+  integrity sha512-IdKerSSHzLPhNiln5FA4LuQxclL3iKln4A6aRVrUXVTpHDT3Z3Y2bummiKdsMaKK+I6jKCRa2z5nERbJ3pB0sA==
   dependencies:
     debug "^4.1.1"
     minimist "^1.2.0"

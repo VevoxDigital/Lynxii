@@ -1,5 +1,5 @@
 
-import * as minimist from 'minimist'
+import minimist from 'minimist'
 import { getNamespace } from './process-helper'
 import LynxiiServer from './server/server'
 

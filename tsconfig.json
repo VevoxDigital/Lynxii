@@ -1,4 +1,6 @@
 {
+  "extends": "./node_modules/vx-util/tsconfig.generic.json",
+
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
@@ -11,15 +13,6 @@
     "lib": [
       "esnext"
     ],
-
-    "allowJs": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "newLine": "lf",
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "inlineSourceMap": true,
-    "strict": true,
 
     "types": [
       "node"
