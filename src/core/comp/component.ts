@@ -1,5 +1,6 @@
 import MACAddress from '../../net/address/mac'
 import { ComponentAddress } from './address'
+import { DataTypeNull } from './data/null'
 import { IPortOpts, Port } from './port'
 
 /**
@@ -19,14 +20,13 @@ export abstract class Component {
   public readonly address: ComponentAddress
 
   /** The root port at address zero */
-  public readonly rootPort: Port
+  public readonly rootPort: Port<null>
 
   private readonly ports = new Map<number, Port>()
 
   public constructor (address: MACAddress | ComponentAddress) {
     this.address = address instanceof MACAddress ? ComponentAddress.fromAddresses(address) : address
-
-    this.rootPort = new Port(this, 0)
+    this.rootPort = new Port(this, 0, DataTypeNull.instance)
     this.ports.set(0, this.rootPort)
   }
 
@@ -49,9 +49,9 @@ export abstract class Component {
    * @param opts The port options
    * @see createNextPort
    */
-  public createPort (opts: IPortOpts): Port {
+  public createPort<T> (opts: IPortOpts<T>): Port<T> {
     const pid = (opts.id && Number(ComponentAddress.MASK_NUM)) | (Port.getType(opts) << ComponentAddress.SHIFT_TYP)
-    const port = new Port(this, pid)
+    const port = new Port(this, pid, opts.type)
 
     if (this.ports.has(port.id)) throw new Error('Port address already in use')
     this.ports.set(port.id, port)

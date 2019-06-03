@@ -1,7 +1,8 @@
 import { ComponentAddress } from './address'
 import { Component } from './component'
+import { DataType } from './datatype'
 
-export interface IPortOpts {
+export interface IPortOpts<T = any> {
   /** Port number in the parent component */
   id: number
 
@@ -10,6 +11,9 @@ export interface IPortOpts {
 
   /** Whether or not this port can output */
   out: boolean
+
+  /** The type of data for this port */
+  type: DataType<T>
 }
 
 /**
@@ -29,7 +33,7 @@ export interface IPortOpts {
  * Each port also a data type it is expected to recieve or send. This data type reflects the kind of port
  * this port can link to, as well as the type of configuration it controls.
  */
-export class Port {
+export class Port<T = any> {
 
   public static getType (opts: ExcludeFrom<IPortOpts, 'id'>): number {
     let data = 0
@@ -49,10 +53,14 @@ export class Port {
   /** The fully-qualified component address of this port */
   public readonly address: ComponentAddress
 
-  public constructor (component: Component, id: number) {
+  /** The type of this port */
+  public readonly type: DataType<T>
+
+  public constructor (component: Component, id: number, type: DataType<T>) {
     this.component = component
     this.id = id
     this.address = component.address.forPort(this.id)
+    this.type = type
   }
 
 }
