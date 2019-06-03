@@ -46,8 +46,8 @@ export abstract class Component {
    */
   public createPort (opts: IPortOpts): Port {
     const port = new Port(this, opts)
-    if (this.ports.has(port.address)) throw new Error('Port address already in use')
-    this.ports.set(port.address, port)
+    if (this.ports.has(port.id)) throw new Error('Port address already in use')
+    this.ports.set(port.id, port)
     return port
   }
 
