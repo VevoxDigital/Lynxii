@@ -14,6 +14,7 @@ export interface IPortOpts {
 
 /**
  * A connection point on a component. Up to a maximum of 256 ports (eight bits) of each kind is allowed.
+ * For creating a new port, see {@link Component#createPort}.
  *
  * There are four kinds of ports:
  *
@@ -26,7 +27,7 @@ export interface IPortOpts {
  * **`11` Control** - Command & Control I/O to allow for programmatic updates of per-instance configuration
  *
  * Each port also a data type it is expected to recieve or send. This data type reflects the kind of port
- * this port can link to, as well as the type of configuration it controls
+ * this port can link to, as well as the type of configuration it controls.
  */
 export class Port {
 
@@ -48,10 +49,10 @@ export class Port {
   /** The fully-qualified component address of this port */
   public readonly address: ComponentAddress
 
-  public constructor (component: Component, opts: IPortOpts) {
+  public constructor (component: Component, id: number) {
     this.component = component
-    this.id = (opts.id << 4 && Component.COMP_PORT_MASK) | Port.getType(opts)
-    this.address = ComponentAddress.fromAddresses(component.address, this.id)
+    this.id = id
+    this.address = component.address.forPort(this.id)
   }
 
 }

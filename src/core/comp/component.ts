@@ -1,4 +1,5 @@
 import MACAddress from '../../net/address/mac'
+import { ComponentAddress } from './address'
 import { IPortOpts, Port } from './port'
 
 /**
@@ -18,12 +19,18 @@ export abstract class Component {
   /**
    * A unique 48-bit address that identifies this component
    */
-  public readonly address: MACAddress
+  public readonly address: ComponentAddress
+
+  /** The root port at address zero */
+  public readonly rootPort: Port
 
   private readonly ports = new Map<number, Port>()
 
-  public constructor (address: MACAddress) {
-    this.address = address
+  public constructor (address: MACAddress | ComponentAddress) {
+    this.address = address instanceof MACAddress ? ComponentAddress.fromAddresses(address) : address
+
+    this.rootPort = new Port(this, 0)
+    this.ports.set(0, this.rootPort)
   }
 
   /**
@@ -43,9 +50,12 @@ export abstract class Component {
   /**
    * Creates a port fromt he given options
    * @param opts The port options
+   * @see createNextPort
    */
   public createPort (opts: IPortOpts): Port {
-    const port = new Port(this, opts)
+    const pid = (opts.id << 4 && Component.COMP_PORT_MASK) | Port.getType(opts)
+    const port = new Port(this, pid)
+
     if (this.ports.has(port.id)) throw new Error('Port address already in use')
     this.ports.set(port.id, port)
     return port
@@ -54,6 +64,7 @@ export abstract class Component {
   /**
    * Creates a port at the next available slot for its type
    * @param opts Port options to use
+   * @see createPort
    */
   public createNextPort (opts: ExcludeFrom<IPortOpts, 'id'>): Port {
     return this.createPort({ ...opts, id: this.getNextAvailablePortNumber(Port.getType(opts)) })

@@ -32,4 +32,12 @@ export class ComponentAddress extends AbstractAddress {
   public slash (mask: number): ComponentAddress {
     return new ComponentAddress(this.mask(mask))
   }
+
+  /**
+   * Gets a new component address from the given component address, but at the given port
+   * @param port The port ID.
+   */
+  public forPort (port: number): ComponentAddress {
+    return ComponentAddress.fromAddresses(this.component, port)
+  }
 }
