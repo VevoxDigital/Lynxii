@@ -1,7 +1,7 @@
 # Lynxii Build Configuration
 
 default:
-  image: node:lts
+  image: node:12
   before_script:
     - npm install --global typescript grunt
     - npm install
