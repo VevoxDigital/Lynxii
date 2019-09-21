@@ -9,6 +9,8 @@ default:
 # Build
 build:
   stage: build
+  tags:
+  - opensource
   script:
     - npm run make
   artifacts:
@@ -18,6 +20,8 @@ build:
 # Test
 test:
   stage: test
+  tags:
+  - opensource
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
   dependencies:
     - build
@@ -31,6 +35,8 @@ test:
 # Pages
 pages:
   stage: deploy
+  tags:
+  - opensource
   dependencies:
     - test
   script:
