@@ -2,7 +2,6 @@
 
 default:
   image: node:lts
-  tags: open-source
   before_script:
     - npm install --global typescript grunt
     - npm install
@@ -12,15 +11,21 @@ build:
   stage: build
   script:
     - npm run make
+  artifacts:
+    paths:
+      - lib/
 
 # Test
 test:
   stage: test
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+  dependencies:
+    - build
   script:
     - npm run test
   artifacts:
     paths:
+      - lib/
       - coverage/
 
 # Pages
@@ -31,7 +36,8 @@ pages:
   script:
     - mv coverage/ public/
   artifacts:
-    path:
+    paths:
       - public
     expire_in: 30 days
-  only: master
+  only:
+  - master
