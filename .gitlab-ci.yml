@@ -1,0 +1,37 @@
+# Lynxii Build Configuration
+
+default:
+  image: node:lts
+  tags: open-source
+  before_script:
+    - npm install --global typescript grunt
+    - npm install
+
+# Build
+build:
+  stage: build
+  script:
+    - npm run make
+
+# Test
+test:
+  stage: test
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+  script:
+    - npm run test
+  artifacts:
+    paths:
+      - coverage/
+
+# Pages
+pages:
+  stage: deploy
+  dependencies:
+    - test
+  script:
+    - mv coverage/ public/
+  artifacts:
+    path:
+      - public
+    expire_in: 30 days
+  only: master

@@ -15,9 +15,10 @@
     "node": ">=11"
   },
   "scripts": {
+    "make": "tsc",
     "compile": "tsc",
     "prepare": "tsc",
-    "test": "nyc mocha",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha",
     "testrun": "tsc && node lib/main"
   },
   "nyc": {
