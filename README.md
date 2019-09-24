@@ -2,12 +2,16 @@
 
 ***Intelligent Devices for the Masses** - Fully Programmable Smart Device Network*
 
-![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/VevoxDigital/Lynxii/master.svg?label=stable&style=for-the-badge)
-![License](https://img.shields.io/badge/license-GNU_GPLv3-green.svg?style=for-the-badge)
+![License](https://img.shields.io/badge/dynamic/json?color=blue&label=license&query=%24.license&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fmaster%2Fpackage.json&style=flat-square)
 
-![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/VevoxDigital/Lynxii/develop.svg?label=latest&style=for-the-badge)
-![Travis (.org)](https://img.shields.io/travis/VevoxDigital/Lynxii.svg?style=for-the-badge)
-![Code Climate coverage](https://img.shields.io/codeclimate/coverage/VevoxDigital/Lynxii.svg?style=for-the-badge)
+![Stable](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=stable&query=%24.version&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fmaster%2Fpackage.json&prefix=v&style=flat-square)
+![Pipeline](https://lab.vevox.io/open-source/lynxii/core/badges/master/pipeline.svg?style=flat-square)
+![Coverage](https://lab.vevox.io/open-source/lynxii/core/badges/master/coverage.svg?style=flat-square)
+
+![Latest](https://img.shields.io/badge/dynamic/json?color=yellow&label=latest&query=%24.version&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fdevelop%2Fpackage.json&prefix=v&style=flat-square)
+![Pipeline](https://lab.vevox.io/open-source/lynxii/core/badges/develop/pipeline.svg?style=flat-square)
+![Coverage](https://lab.vevox.io/open-source/lynxii/core/badges/develop/coverage.svg?style=flat-square)
+
 
 # Introduction
 Lynxii is a powerful tool for creating dynamic and programmable networks of devices that all integrate together. We aim to create a standardized way for "smart" devices to communicate with one-another that can be updated on the fly and even automated completely, all without needing any programming knowledge. This allows users to insert control logic between their devices to actually make the whole network "smart", for real.
