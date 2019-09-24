@@ -1,4 +1,4 @@
-![Lynxii](res/lynxii.svg)
+![Lynxii](https://lab.vevox.io/open-source/lynxii/core/uploads/1b312c4ddd84781151bf71c63cd14fff/lynxii.svg)
 
 ***Intelligent Devices for the Masses** - Fully Programmable Smart Device Network*
 
