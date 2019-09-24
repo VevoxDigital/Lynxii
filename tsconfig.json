@@ -7,13 +7,6 @@
     "declaration": true,
     "declarationDir": "lib",
 
-    "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": [
-      "esnext"
-    ],
-
     "types": [
       "node"
     ]
