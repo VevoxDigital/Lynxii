@@ -40,7 +40,7 @@ export default class NetworkV4Address extends AbstractAddress {
      * @param str The string
      */
     public static fromString (str: string) {
-        return AbstractAddress.createFromString(this, str, this.BYTES, this.SEP, this.RADIX)
+        return AbstractAddress.createFromString(this, str, this.SEP, this.RADIX)
     }
 
     public constructor (bytes: number[] = []) {
@@ -52,10 +52,10 @@ export default class NetworkV4Address extends AbstractAddress {
      * @param mask The mask
      */
     public slash (mask: number): NetworkV4Address {
-        mask = Math.min(Math.abs(Math.floor(mask)), NetworkV4Address.BYTES * 8)
+        mask = Math.min(Math.abs(Math.floor(mask)), NetworkV4Address.BYTES * AbstractAddress.BYTELENGTH)
 
-        const maskUntouched = Math.floor(mask / 8)
-        const maskBits = mask % 8
+        const maskUntouched = Math.floor(mask / AbstractAddress.BYTELENGTH)
+        const maskBits = ~(AbstractAddress.BYTE >>> (mask % AbstractAddress.BYTELENGTH)) & AbstractAddress.BYTE
 
         const bytes = this.getBytes()
         for (let i = 0; i < this.length; i++) {

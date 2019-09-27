@@ -10,6 +10,9 @@ export default class HardwareAddress extends AbstractAddress {
     public static readonly BYTES = 6
     public static readonly SEP = ':'
 
+    public static readonly BIT_MULTICAST = 1
+    public static readonly BIT_LOCAL = 0b10
+
     /**
      * Gets a new hardware address from the given bytes
      * @param bytes The bytes to use
@@ -22,7 +25,7 @@ export default class HardwareAddress extends AbstractAddress {
      * Gets a new hardware address from the given string
      */
     public static fromString (data: string) {
-        return AbstractAddress.createFromString(this, data, this.BYTES, this.SEP, this.RADIX)
+        return AbstractAddress.createFromString(this, data, this.SEP, this.RADIX)
     }
 
     public constructor (bytes: number[] = []) {
@@ -34,7 +37,7 @@ export default class HardwareAddress extends AbstractAddress {
      */
     public isMulticast (): boolean {
         const byte = this.getByte(0)
-        return (byte & 1) > 0
+        return (byte & HardwareAddress.BIT_MULTICAST) > 0
     }
 
     /**
@@ -42,7 +45,7 @@ export default class HardwareAddress extends AbstractAddress {
      */
     public isLocal (): boolean {
         const byte = this.getByte(0)
-        return (byte & 0b10) > 0
+        return (byte & HardwareAddress.BIT_LOCAL) > 0
     }
 
     /**

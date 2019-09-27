@@ -9,27 +9,19 @@ export default abstract class AbstractAddress implements Iterable<number>, ISeri
     /** The maximum numerical size of a byte */
     public static readonly BYTE = 0xFF
 
+    /** The number of bits in a byte */
+    public static readonly BYTELENGTH = 8
+
     public static createFromBytes <T extends AbstractAddress> (c: Instanciable<T, [number[]]>, bytes: number[]): T {
         return new c(bytes)
     }
 
     public static createFromString <T extends AbstractAddress> (c: Instanciable<T, [number[]]>,
                                                                 str: string,
-                                                                byteCount: number,
                                                                 separator: string,
                                                                 radix: number): T {
             str = str.trim()
-            const potentialBytes = str.split(new RegExp('/' + separator + '/', 'g'))
-            const bytes: number[] = []
-            for (let i = 0; i < byteCount; i++) {
-                if (i >= potentialBytes.length) {
-                    bytes[i] = 0
-                } else {
-                    const num = Number.parseInt(potentialBytes[i], radix)
-                    bytes[i] = Number.isNaN(num) ? 0 : num
-                }
-            }
-            return new c(bytes)
+            return new c(str.split(separator).map(s => Number.parseInt(s, radix)))
         }
 
     private bytes: number[] = []
@@ -107,7 +99,7 @@ export default abstract class AbstractAddress implements Iterable<number>, ISeri
     }
 
     private coerceByte (byte: number): number {
-        return Math.min(Math.abs(byte), AbstractAddress.BYTE)
+        return typeof byte === 'number' && !Number.isNaN(byte) ? Math.min(Math.abs(byte), AbstractAddress.BYTE) : 0
     }
 
     private coerceIndex (index: number): number {

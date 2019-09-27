@@ -21,7 +21,7 @@ export class ComponentAddress extends AbstractAddress {
      * @param data The string to create from
      */
     public static fromString (data: string) {
-        return AbstractAddress.createFromString(this, data, this.BYTES, HardwareAddress.SEP, HardwareAddress.RADIX)
+        return AbstractAddress.createFromString(this, data, HardwareAddress.SEP, HardwareAddress.RADIX)
     }
 
     /**
