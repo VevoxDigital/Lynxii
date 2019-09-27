@@ -2,12 +2,10 @@
 
 ***Intelligent Devices for the Masses** - Fully Programmable Smart Device Network*
 
-![License](https://img.shields.io/badge/dynamic/json?color=blue&label=license&query=%24.license&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fmaster%2Fpackage.json&style=flat-square)
-
+![License](https://img.shields.io/badge/dynamic/json?color=blue&label=license&query=%24.license&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fmaster%2Fpackage.json&style=flat-square)  
 ![Stable](https://img.shields.io/badge/dynamic/json?color=brightgreen&label=stable&query=%24.version&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fmaster%2Fpackage.json&prefix=v&style=flat-square)
 ![Pipeline](https://lab.vevox.io/open-source/lynxii/core/badges/master/pipeline.svg?style=flat-square)
-![Coverage](https://lab.vevox.io/open-source/lynxii/core/badges/master/coverage.svg?style=flat-square)
-
+![Coverage](https://lab.vevox.io/open-source/lynxii/core/badges/master/coverage.svg?style=flat-square)  
 ![Latest](https://img.shields.io/badge/dynamic/json?color=yellow&label=latest&query=%24.version&url=https%3A%2F%2Flab.vevox.io%2Fopen-source%2Flynxii%2Fcore%2Fraw%2Fdevelop%2Fpackage.json&prefix=v&style=flat-square)
 ![Pipeline](https://lab.vevox.io/open-source/lynxii/core/badges/develop/pipeline.svg?style=flat-square)
 ![Coverage](https://lab.vevox.io/open-source/lynxii/core/badges/develop/coverage.svg?style=flat-square)
